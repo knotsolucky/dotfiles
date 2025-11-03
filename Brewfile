@@ -1,0 +1,12 @@
+brew "neovim"
+brew "lazygit"
+#brew "clangd"
+brew "zsh-syntax-highlighting"
+brew "zsh-autosuggestions"
+brew "zoxide"
+brew "zsh"
+brew "yazi"
+brew "ranger"
+brew "tmux"
+brew "tree"
+

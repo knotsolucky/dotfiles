@@ -1,0 +1,7 @@
+font-family =  "Iosevka Nerd Font"
+font-size = 18
+maximize
+theme = Adventure
+background-blur = true
+background-opacity = 0.9
+window-vsync = true
