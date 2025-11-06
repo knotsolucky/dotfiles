@@ -15,3 +15,6 @@ opt.tabstop = 4
 opt.autoindent = true
 opt.shiftwidth = 0
 opt.cursorline = true
+
+vim.opt.fillchars:append({ eob = " " })  -- hide ~ at end of buffer
+

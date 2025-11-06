@@ -6,7 +6,8 @@ brew "zsh-autosuggestions"
 brew "zoxide"
 brew "zsh"
 brew "yazi"
-brew "ranger"
+#brew "ranger"
 brew "tmux"
 brew "tree"
-
+brew "gh"
+brew "llvm" # clang
