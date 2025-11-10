@@ -11,3 +11,7 @@ brew "tmux"
 brew "tree"
 brew "gh"
 brew "llvm" # clang
+brew "unzip"
+brew "zip"
+brew "npm"
+brew "dotnet"
