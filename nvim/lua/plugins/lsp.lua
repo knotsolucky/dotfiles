@@ -11,6 +11,7 @@ local servers = {
   bashls = {},
   jsonls = {},
   yamlls = {},
+  tailwindcss = {},
   clangd = {
     cmd = {
       "clangd",
@@ -38,6 +39,7 @@ local tool_installs = {
   "prettierd",
   "prettier",
   "eslint_d",
+  "tailwindcss-language-server",
   "black",
   "isort",
   "typescript-language-server",
@@ -158,47 +160,34 @@ return {
 
         local ok, which_key = pcall(require, "which-key")
         if ok then
-          which_key.register({
-            ["<leader>l"] = {
-              name = "LSP",
-              d = {
-                name = "Diagnostics",
-                d = "Diagnostics (cursor)",
-                D = "Diagnostics list",
-                n = "Next diagnostic",
-                p = "Previous diagnostic",
-              },
-              a = {
-                name = "Actions",
-                a = "Code actions",
-                r = "Rename symbol",
-                f = "Format buffer",
-              },
-              g = {
-                name = "Navigation",
-                d = "Definition",
-                D = "Declaration",
-                r = "References",
-                i = "Implementation",
-                t = "Type definition",
-                h = "Hover",
-                k = "Signature help",
-              },
-              s = {
-                name = "Symbols",
-                s = "Document symbols",
-                S = "Workspace symbols",
-                I = "Incoming calls",
-                O = "Outgoing calls",
-              },
-              w = {
-                name = "Workspace",
-                l = "List folders",
-                a = "Add folder",
-                r = "Remove folder",
-              },
-            },
-          }, { buffer = bufnr })
+          which_key.add({
+            { "<leader>la", group = "Actions" },
+            { "<leader>laa", desc = "Code actions" },
+            { "<leader>laf", desc = "Format buffer" },
+            { "<leader>lar", desc = "Rename symbol" },
+            { "<leader>ld", group = "Diagnostics" },
+            { "<leader>ldd", desc = "Diagnostics (cursor)" },
+            { "<leader>ldD", desc = "Diagnostics list" },
+            { "<leader>ldn", desc = "Next diagnostic" },
+            { "<leader>ldp", desc = "Previous diagnostic" },
+            { "<leader>lg", group = "Navigation" },
+            { "<leader>lgd", desc = "Definition" },
+            { "<leader>lgD", desc = "Declaration" },
+            { "<leader>lgr", desc = "References" },
+            { "<leader>lgi", desc = "Implementation" },
+            { "<leader>lgt", desc = "Type definition" },
+            { "<leader>lgh", desc = "Hover" },
+            { "<leader>lgk", desc = "Signature help" },
+            { "<leader>ls", group = "Symbols" },
+            { "<leader>lss", desc = "Document symbols" },
+            { "<leader>lsS", desc = "Workspace symbols" },
+            { "<leader>lsI", desc = "Incoming calls" },
+            { "<leader>lsO", desc = "Outgoing calls" },
+            { "<leader>lw", group = "Workspace" },
+            { "<leader>lwa", desc = "Add folder" },
+            { "<leader>lwl", desc = "List folders" },
+            { "<leader>lwr", desc = "Remove folder" },
+          }, { buffer = bufnr, mode = "n" })
         end
       end
 
