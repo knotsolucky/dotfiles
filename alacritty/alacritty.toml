@@ -1,0 +1,6 @@
+[font]
+ size = 18
+normal.family = "JetBrainsMono NF"
+
+[window]
+startup_mode = "Maximized"

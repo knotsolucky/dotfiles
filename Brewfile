@@ -17,5 +17,14 @@ brew "npm"
 brew "dotnet"
 brew "starship"
 brew "eza"
+brew "zoxide"
+
+
+
 cask "font-geist-mono-nerd-font" 
 cask "font-jetbrains-mono-nerd-font" 
+cask "google-chrome"
+cask "discord"
+cask "alt-tab"
+cask "alacritty"
+cask "ghostty"
