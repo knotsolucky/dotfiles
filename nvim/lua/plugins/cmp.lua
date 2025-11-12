@@ -13,26 +13,11 @@ return {
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
-
       require("luasnip.loaders.from_vscode").lazy_load()
 
-      luasnip.config.setup({})
-
-      local opts = {
-        completion = {
-          completeopt = "menu,menuone,noselect",
-        },
-        view = {
-          entries = {
-            name = "custom",
-            selection_order = "near_cursor",
-          },
-        },
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
+      cmp.setup({
+        completion = { completeopt = "menu,menuone,noselect" },
+        snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
         window = {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
@@ -70,22 +55,12 @@ return {
           { name = "buffer" },
           { name = "path" },
         }),
-        formatting = {
-          fields = { "abbr", "kind", "menu" },
-        },
-        performance = {
-          async_budget = 5,
-          max_view_entries = 10,
-        },
-      }
+      })
 
-      cmp.setup(opts)
-
-      local has_autopairs, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
-      if has_autopairs then
+      local ok, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
+      if ok then
         cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
       end
     end,
   },
 }
-

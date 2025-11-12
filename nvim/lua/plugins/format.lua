@@ -23,9 +23,14 @@ return {
         cs = { "csharpier" },
         java = { "google-java-format" },
       },
-      format_on_save = function(bufnr)
-        return { timeout_ms = 500, lsp_format = "fallback" }
-      end,
+      format_on_save = { timeout_ms = 500, lsp_format = "fallback" },
+      formatters = {
+        csharpier = {
+          command = (vim.env.MASON or (vim.fn.stdpath("data") .. "/mason")) .. "/bin/csharpier",
+          args = { "--write-stdout" },
+          stdin = true,
+        },
+      },
     },
   },
 }

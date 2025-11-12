@@ -18,6 +18,9 @@ brew "dotnet"
 brew "starship"
 brew "eza"
 brew "zoxide"
+brew "maven"
+brew "lua"
+
 
 
 
@@ -28,3 +31,5 @@ cask "discord"
 cask "alt-tab"
 cask "alacritty"
 cask "ghostty"
+cask "zen-browser"
+cask "macs-fan-control"

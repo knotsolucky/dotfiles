@@ -14,17 +14,7 @@ return {
       },
     },
   },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    lazy = true,
-  },
-  {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    lazy = true,
-  },
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-    lazy = true,
-  },
+  { "williamboman/mason-lspconfig.nvim", lazy = true },
+  { "WhoIsSethDaniel/mason-tool-installer.nvim", lazy = true },
+  { "jay-babu/mason-nvim-dap.nvim", lazy = true },
 }
-

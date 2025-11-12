@@ -2,27 +2,19 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
-    version = false,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
+    dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
-      { "<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Telescope find files" },
-      { "<leader>fg", function() require("telescope.builtin").live_grep() end, desc = "Telescope live grep" },
-      { "<leader>fb", function() require("telescope.builtin").buffers() end, desc = "Telescope buffers" },
-      { "<leader>fh", function() require("telescope.builtin").help_tags() end, desc = "Telescope help tags" },
+      { "<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Find files" },
+      { "<leader>fg", function() require("telescope.builtin").live_grep() end, desc = "Live grep" },
+      { "<leader>fb", function() require("telescope.builtin").buffers() end, desc = "Buffers" },
+      { "<leader>fh", function() require("telescope.builtin").help_tags() end, desc = "Help tags" },
     },
     opts = {
       defaults = {
         mappings = {
-          i = {
-            ["<C-h>"] = "which_key",
-          },
+          i = { ["<C-h>"] = "which_key" },
         },
       },
     },
-    config = function(_, opts)
-      require("telescope").setup(opts)
-    end,
   },
 }
