@@ -23,6 +23,8 @@ return {
         { "<leader>fg", desc = "Live grep" },
         { "<leader>fb", desc = "Buffers" },
         { "<leader>fh", desc = "Help tags" },
+        { "<leader>e", desc = "Toggle explorer" },
+        { "<leader>E", desc = "Focus explorer" },
         { "<leader>g", group = "Git" },
         { "<leader>l", group = "LSP" },
       }, { mode = "n" })

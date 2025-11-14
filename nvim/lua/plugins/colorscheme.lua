@@ -1,11 +1,24 @@
 return {
   {
-    "kepano/flexoki-neovim",
-    name = "flexoki",
+    "catppuccin/nvim",
+    name = "catppuccin",
     lazy = false,
     priority = 1000,
-    config = function()
-      vim.cmd.colorscheme("flexoki-dark")
+    opts = {
+      flavour = "mocha",
+      integrations = {
+        cmp = true,
+        dap = true,
+        gitsigns = true,
+        nvimtree = true,
+        telescope = true,
+        treesitter = true,
+        which_key = true,
+      },
+    },
+    config = function(_, opts)
+      require("catppuccin").setup(opts)
+      vim.cmd.colorscheme("catppuccin")
     end,
   },
 }
