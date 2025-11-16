@@ -34,5 +34,4 @@ opt.updatetime = 200
 opt.timeoutlen = 400
 
 opt.fillchars = { eob = " " }
-opt.list = true
-opt.listchars = { tab = "» ", trail = "·" }
+opt.list = false

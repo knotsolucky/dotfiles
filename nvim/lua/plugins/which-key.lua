@@ -26,6 +26,9 @@ return {
         { "<leader>e", desc = "Toggle explorer" },
         { "<leader>E", desc = "Focus explorer" },
         { "<leader>g", group = "Git" },
+        { "<leader>b", group = "Buffers" },
+        { "<leader>bb", desc = "Pick buffer" },
+        { "<leader>bc", desc = "Close buffer" },
         { "<leader>l", group = "LSP" },
       }, { mode = "n" })
     end,
