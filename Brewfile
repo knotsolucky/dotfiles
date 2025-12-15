@@ -115,6 +115,7 @@ brew "lua"
 brew "cmake"
 brew "make"
 brew "raylib"
+brew "sdl2"
 
 
 cask "font-geist-mono-nerd-font" 
