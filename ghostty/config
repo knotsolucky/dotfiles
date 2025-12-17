@@ -1,5 +1,5 @@
-font-family =  "JetBrainsMono NF"
-font-size = 15 
+font-family =   "FiraCode Nerd Font" 
+font-size = 18 
 maximize
 theme = Adventure
 background-blur = true
