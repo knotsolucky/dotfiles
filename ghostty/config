@@ -1,5 +1,6 @@
-font-family =   "FiraCode Nerd Font" 
+font-family = "ComicShannsMono Nerd Font" 
 font-size = 18 
+font-family-bold = true
 maximize
 theme = Adventure
 background-blur = true
