@@ -1,6 +1,6 @@
 font-family = "ComicShannsMono Nerd Font" 
 font-size = 18 
-font-family-bold = true
+font-family-bold = false 
 maximize
 theme = Adventure
 background-blur = true
