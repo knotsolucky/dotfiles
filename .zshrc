@@ -1,6 +1,4 @@
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
-
 # Zsh Autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 

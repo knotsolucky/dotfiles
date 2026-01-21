@@ -1,5 +1,4 @@
 
-brew "bash"
 brew "bat"
 brew "docker"
 brew "gcc"
@@ -40,18 +39,14 @@ brew "sdl2"
 
 cask "alacritty"
 cask "alt-tab"
-cask "discord"
 cask "dotnet-sdk"
 cask "obsidian"
 cask "tidal"
-cask "unnaturalscrollwheels"
 cask "visual-studio-code"
 cask "ghostty"
-cask "macs-fan-control"
 cask "cursor"
 cask "1password"
 cask "firefox"
-
 
 cask "font-fira-code"
 cask "font-geist-mono-nerd-font"
