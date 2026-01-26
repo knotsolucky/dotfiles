@@ -23,3 +23,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 
 
+
+# bun completions
+[ -s "/Users/habeebgiwa/.bun/_bun" ] && source "/Users/habeebgiwa/.bun/_bun"
