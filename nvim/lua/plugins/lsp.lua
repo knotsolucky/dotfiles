@@ -30,6 +30,19 @@ local servers = {
 	csharp_ls = {},
 	harper_ls = {},
 	jdtls = {},
+	rust_analyzer = {
+		settings = {
+			["rust-analyzer"] = {
+				checkOnSave = {
+					command = "clippy",
+				},
+				checkOnType = true,
+				cargo = {
+					allFeatures = true,
+				},
+			},
+		},
+	},
 }
 
 local tool_installs = {
@@ -51,6 +64,8 @@ local tool_installs = {
 	"trivy",
 	"jdtls",
 	"java-debug-adapter",
+	"rust-analyzer",
+	"rustfmt",
 }
 
 return {
@@ -74,6 +89,12 @@ return {
 			})
 
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			-- Enable real-time text synchronization
+			capabilities.textDocument = capabilities.textDocument or {}
+			capabilities.textDocument.synchronization = capabilities.textDocument.synchronization or {}
+			capabilities.textDocument.synchronization.didSave = true
+			capabilities.textDocument.synchronization.willSave = false
+			capabilities.textDocument.synchronization.willSaveWaitUntil = false
 			local function on_attach(client, bufnr)
 				local map = function(mode, lhs, rhs, desc)
 					vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
@@ -199,6 +220,10 @@ return {
 								}, ":"),
 							})
 						end
+						if server_name == "rust_analyzer" then
+							-- Ensure rust-analyzer has proper root directory detection
+							opts.root_dir = require("lspconfig.util").root_pattern("Cargo.toml", "rust-project.json")
+						end
 						require("lspconfig")[server_name].setup(opts)
 					end,
 				},
@@ -208,6 +233,20 @@ return {
 				float = { border = "rounded" },
 				severity_sort = true,
 				virtual_text = { prefix = "●" },
+				update_in_insert = true,
+			})
+
+			-- Enable real-time diagnostics updates on text changes
+			local diagnostic_group = vim.api.nvim_create_augroup("LspDiagnostics", { clear = true })
+			vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI", "InsertLeave" }, {
+				group = diagnostic_group,
+				callback = function(args)
+					-- Refresh diagnostics for the current buffer
+					local clients = vim.lsp.get_clients({ bufnr = args.buf })
+					if #clients > 0 then
+						vim.diagnostic.show(args.buf)
+					end
+				end,
 			})
 		end,
 	},
