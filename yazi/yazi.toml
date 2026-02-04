@@ -1,2 +1,18 @@
 [mgr]
 show_hidden = true
+
+[opener]
+edit = [
+  { run = 'nvim "$@"', block = true, for = "unix" },
+]
+
+[open]
+rules = [
+  { mime = "text/*", use = "edit" },
+  # Common config/docs that sometimes don't report text/* reliably
+  { name = "*.md", use = "edit" },
+  { name = "*.toml", use = "edit" },
+  { name = "*.yaml", use = "edit" },
+  { name = "*.yml", use = "edit" },
+  { name = "*.json", use = "edit" },
+]

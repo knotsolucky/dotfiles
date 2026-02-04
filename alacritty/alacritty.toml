@@ -1,6 +1,6 @@
 [font]
-size = 16
-normal.family = "IosevkaTerm Nerd Font"
+size = 18
+normal.family = "JetBrainsMono Nerd Font"
 
 [window]
 startup_mode = "Maximized"

@@ -71,11 +71,20 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       local lint = require "lint"
+      local function js_ts_linter()
+        if vim.fn.executable "eslint_d" == 1 then
+          return { "eslint_d" }
+        end
+        if vim.fn.executable "eslint" == 1 then
+          return { "eslint" }
+        end
+        return {}
+      end
       lint.linters_by_ft = {
-        javascript = { "eslint_d" },
-        typescript = { "eslint_d" },
-        javascriptreact = { "eslint_d" },
-        typescriptreact = { "eslint_d" },
+        javascript = js_ts_linter(),
+        typescript = js_ts_linter(),
+        javascriptreact = js_ts_linter(),
+        typescriptreact = js_ts_linter(),
         sh = { "shellcheck" },
         bash = { "shellcheck" },
       }
