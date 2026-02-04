@@ -33,10 +33,12 @@ local options = {
       stdin = true,
     },
   },
-  -- format_on_save = {
-  --   timeout_ms = 500,
-  --   lsp_fallback = true,
-  -- },
+  format_on_save = function(bufnr)
+    if vim.g.disable_lsp_lint_formatter then
+      return nil
+    end
+    return { timeout_ms = 500 }
+  end,
 }
 
 return options

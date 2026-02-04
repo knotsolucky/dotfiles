@@ -83,6 +83,9 @@ return {
       vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
         group = augroup,
         callback = function()
+          if vim.g.disable_lsp_lint_formatter then
+            return
+          end
           lint.try_lint()
         end,
       })

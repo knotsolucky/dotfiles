@@ -6,5 +6,6 @@ local map = vim.keymap.set
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
+map("n", "<leader>ut", "<cmd>ToggleLSPLintFormatter<cr>", { desc = "Toggle LSP / Lint / Formatter" })
 
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")

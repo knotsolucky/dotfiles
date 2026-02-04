@@ -31,6 +31,7 @@ dofile(vim.g.base46_cache .. "statusline")
 
 require "options"
 require "autocmds"
+require "toggle_lsp_lint"
 
 vim.schedule(function()
   require "mappings"
