@@ -1,11 +1,12 @@
-require "nvchad.mappings"
+local m = vim.keymap.set
 
--- add yours here
-
-local map = vim.keymap.set
-
-map("n", ";", ":", { desc = "CMD enter command mode" })
-map("i", "jk", "<ESC>")
-map("n", "<leader>ut", "<cmd>ToggleLSPLintFormatter<cr>", { desc = "Toggle LSP / Lint / Formatter" })
-
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+m("n", ";", ":")
+m("i", "jk", "<Esc>")
+m("n", "<leader>w", "<cmd>w<cr>")
+m("n", "<leader>q", "<cmd>q<cr>")
+m("n", "<leader>e", "<cmd>NvimTreeToggle<cr>")
+m("n", "<leader>ff", "<cmd>Telescope find_files<cr>")
+m("n", "<leader>fg", "<cmd>Telescope live_grep<cr>")
+m("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
+m("n", "<leader>fh", "<cmd>Telescope help_tags<cr>")
+m("n", "<leader>fr", "<cmd>Telescope resume<cr>")
