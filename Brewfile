@@ -36,6 +36,7 @@ brew "cmake"
 brew "make"
 brew "raylib"
 brew "sdl2"
+brew "fzf"
 
 cask "alacritty"
 cask "alt-tab"

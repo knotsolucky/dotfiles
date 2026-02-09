@@ -3,8 +3,17 @@ require("cmp_nvim_lsp").setup()
 local cmp = require "cmp"
 local luasnip = require "luasnip"
 
+require("tailwindcss-colorizer-cmp").setup({ color_square_width = 2 })
+
+local lspkind = require("lspkind")
 cmp.setup({
   completion = { completeopt = "menu,menuone,noselect", keyword_length = 1 },
+  formatting = {
+    format = function(entry, vim_item)
+      vim_item = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+      return require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
+    end,
+  },
   window = {
     completion = cmp.config.window.bordered({ border = "rounded" }),
     documentation = cmp.config.window.bordered({ border = "rounded" }),

@@ -17,21 +17,13 @@ return {
           border = true,
           borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
           mappings = {
-            i = {
-              ["<C-t>"] = actions.select_tab, -- open selection in a new tab
-            },
-            n = {
-              ["<C-t>"] = actions.select_tab, -- open selection in a new tab
-            },
+            i = { ["<C-t>"] = actions.select_tab },
+            n = { ["<C-t>"] = actions.select_tab },
           },
         },
       }
-      local ok = pcall(require("telescope").load_extension, "fzf")
-      if not ok then
-        vim.notify(
-          "telescope-fzf-native: run `make` in ~/.local/share/nvim/lazy/telescope-fzf-native.nvim to build libfzf.so",
-          vim.log.levels.WARN
-        )
+      if not pcall(require("telescope").load_extension, "fzf") then
+        vim.notify("telescope-fzf-native: run `make` in plugin dir", vim.log.levels.WARN)
       end
     end,
   },

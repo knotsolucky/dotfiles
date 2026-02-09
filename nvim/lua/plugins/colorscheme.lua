@@ -4,7 +4,7 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      require("nightfox").setup({})
+      require("nightfox").setup()
       vim.cmd.colorscheme("carbonfox")
     end,
   },
