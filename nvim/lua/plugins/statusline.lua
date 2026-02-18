@@ -1,7 +1,9 @@
+local icons = require("icons")
+
 local function gitsigns_branch()
   local head = vim.b.gitsigns_head
   if head and head ~= "" then
-    return "\238\130\160 " .. head
+    return icons.branch .. " " .. head
   end
   return ""
 end

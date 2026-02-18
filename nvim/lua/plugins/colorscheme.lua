@@ -4,8 +4,24 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      require("nightfox").setup()
-      vim.cmd.colorscheme("carbonfox")
+      require("nightfox").setup({})
+    end,
+  },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("tokyonight").setup({})
+    end,
+  },
+  {
+    "catppuccin/nvim",
+    lazy = false,
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+      require("catppuccin").setup({})
     end,
   },
 }

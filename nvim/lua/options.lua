@@ -1,4 +1,8 @@
 local o = vim.opt
+
+-- Use a Nerd Font so icons render consistently (GUI). In terminal, set your terminal font to the same.
+o.guifont = "JetBrainsMono Nerd Font:h14"
+
 o.number = true
 o.relativenumber = true
 o.mouse = "a"
@@ -19,28 +23,18 @@ vim.filetype.add({
   extension = { ts = "typescript", tsx = "typescriptreact", js = "javascript", jsx = "javascriptreact" },
 })
 
-local sev = vim.diagnostic.severity
+local icons = require("icons")
 vim.diagnostic.config({
-  signs = { text = { [sev.ERROR] = "󰅙", [sev.WARN] = "󰀪", [sev.INFO] = "󰋼", [sev.HINT] = "󰌵" } },
-  virtual_text = { prefix = " ", format = function(d) return d.message end },
-  float = false,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = icons.diagnostic_error,
+      [vim.diagnostic.severity.WARN] = icons.diagnostic_warn,
+      [vim.diagnostic.severity.INFO] = icons.diagnostic_info,
+      [vim.diagnostic.severity.HINT] = icons.diagnostic_hint,
+    },
+  },
+  virtual_text = {
+    prefix = " ",
+    format = function(d) return d.message end,
+  },
 })
-
-local function hover_in_split(_, result, _, _)
-  if not result or not result.contents then return end
-  local content = result.contents
-  if type(content) == "table" then
-    content = content.value or (content[1] and content[1].value) or ""
-  end
-  if type(content) ~= "string" or content == "" then return end
-  vim.cmd("belowright split")
-  local buf = vim.api.nvim_get_current_buf()
-  vim.api.nvim_buf_set_lines(buf, 0, -1, true, vim.split(content, "\n"))
-  vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
-  vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
-  vim.api.nvim_win_set_option(0, "wrap", true)
-  vim.api.nvim_win_set_option(0, "number", false)
-  vim.api.nvim_win_set_option(0, "relativenumber", false)
-end
-
-vim.lsp.handlers[vim.lsp.protocol.Methods.textDocument_hover] = vim.lsp.with(hover_in_split, {})
