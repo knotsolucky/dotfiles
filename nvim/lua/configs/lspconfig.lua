@@ -5,8 +5,7 @@ local cap = vim.tbl_deep_extend(
 )
 
 local function on_attach(_, bufnr)
-  local m = vim.keymap.set
-  local o = { buffer = bufnr }
+  local m, o = vim.keymap.set, { buffer = bufnr }
   m("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", o, { desc = "Go to definition" }))
   m("n", "gD", vim.lsp.buf.declaration, vim.tbl_extend("force", o, { desc = "Go to declaration" }))
   m("n", "gr", vim.lsp.buf.references, vim.tbl_extend("force", o, { desc = "References" }))
@@ -19,8 +18,28 @@ local function on_attach(_, bufnr)
   m("n", "]d", vim.diagnostic.goto_next, vim.tbl_extend("force", o, { desc = "Next diagnostic" }))
 end
 
+local servers = { "lua_ls", "ts_ls", "pyright", "jsonls", "cssls", "tailwindcss", "rust_analyzer" }
+
+local formatters_by_ft = {
+  lua = { "stylua" },
+  python = { "ruff_format" },
+  rust = { "rustfmt" },
+  javascript = { "prettier" },
+  javascriptreact = { "prettier" },
+  typescript = { "prettier" },
+  typescriptreact = { "prettier" },
+  json = { "prettier" },
+  jsonc = { "prettier" },
+  html = { "prettier" },
+  css = { "prettier" },
+  scss = { "prettier" },
+  markdown = { "prettier" },
+  yaml = { "prettier" },
+}
+
 return {
   capabilities = cap,
   on_attach = on_attach,
-  servers = { "lua_ls", "ts_ls", "pyright", "jsonls", "cssls" },
+  servers = servers,
+  formatters_by_ft = formatters_by_ft,
 }

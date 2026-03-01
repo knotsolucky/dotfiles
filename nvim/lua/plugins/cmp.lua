@@ -9,9 +9,7 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
     },
-    config = function()
-      require "configs.cmp"
-    end,
+    config = function() require("configs.cmp") end,
   },
   { "L3MON4D3/LuaSnip", lazy = false, opts = {} },
 }

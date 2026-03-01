@@ -1,7 +1,7 @@
 require("cmp_nvim_lsp").setup()
 
-local cmp = require "cmp"
-local luasnip = require "luasnip"
+local cmp = require("cmp")
+local luasnip = require("luasnip")
 
 cmp.setup({
   completion = { completeopt = "menu,menuone,noselect", keyword_length = 1 },
