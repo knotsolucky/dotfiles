@@ -8,6 +8,7 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
+      "onsails/lspkind.nvim",
     },
     config = function() require("configs.cmp") end,
   },

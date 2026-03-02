@@ -1,6 +1,6 @@
 local o = vim.opt
 
-o.guifont = "JetBrainsMono Nerd Font:h14"
+o.guifont = "CommitMono Nerd Font:h14"
 o.number = true
 o.relativenumber = true
 o.mouse = "a"

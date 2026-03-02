@@ -1,8 +1,9 @@
-font-family = "JetBrainsMono Nerd Font" 
-font-size = 18 
-font-family-bold = false 
-maximize
+font-family = "CommitMono Nerd Font"
+font-size = 20
+
 theme = Adventure
-background-blur = true
-background-opacity = 0.5 
+
+maximize
+
 window-vsync = true
+window-padding-balance = true

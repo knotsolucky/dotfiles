@@ -14,16 +14,29 @@ local function on_attach(_, bufnr)
   m("n", "<leader>cf", function()
     require("conform").format({ async = true, lsp_fallback = true })
   end, vim.tbl_extend("force", o, { desc = "Format" }))
-  m("n", "[d", vim.diagnostic.goto_prev, vim.tbl_extend("force", o, { desc = "Previous diagnostic" }))
-  m("n", "]d", vim.diagnostic.goto_next, vim.tbl_extend("force", o, { desc = "Next diagnostic" }))
 end
 
-local servers = { "lua_ls", "ts_ls", "pyright", "jsonls", "cssls", "tailwindcss", "rust_analyzer" }
+local servers = {
+  "lua_ls",
+  "ts_ls",
+  "pyright",
+  "jsonls",
+  "cssls",
+  "tailwindcss",
+  "rust_analyzer",
+  "clangd",
+  "jdtls",
+  "zls",
+}
 
 local formatters_by_ft = {
   lua = { "stylua" },
   python = { "ruff_format" },
   rust = { "rustfmt" },
+  c = { "clang_format" },
+  cpp = { "clang_format" },
+  java = { "google_java_format" }, -- or use LSP format via format_on_save lsp_fallback
+  zig = { "zigfmt" },
   javascript = { "prettier" },
   javascriptreact = { "prettier" },
   typescript = { "prettier" },
