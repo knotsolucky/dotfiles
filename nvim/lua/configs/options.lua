@@ -18,10 +18,16 @@ o.smartindent = true
 o.pumheight = 10
 
 vim.filetype.add({
-  extension = { ts = "typescript", tsx = "typescriptreact", js = "javascript", jsx = "javascriptreact" },
+  extension = {
+    ts = "typescript",
+    tsx = "typescriptreact",
+    js = "javascript",
+    jsx = "javascriptreact",
+    py = "python",
+    java = "java",
+  },
 })
 
--- No linter/diagnostic UI (signs or virtual text)
 vim.diagnostic.config({
   virtual_text = false,
   signs = false,
