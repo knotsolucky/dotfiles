@@ -17,7 +17,7 @@ o.smartindent = true
 o.pumheight = 10
 
 vim.diagnostic.config({
-  virtual_text = false,
-  signs = false,
+  virtual_text = true,
+  signs = true,
   underline = false,
 })
