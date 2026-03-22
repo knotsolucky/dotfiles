@@ -1,0 +1,61 @@
+/* General notification container */
+.notification {
+    background-color: rgba(15, 15, 15, 0.9); /* OLED black / dark grey */
+    color: #ffffff;
+    font-family: "JetBrains Mono", "JetBrainsMono NF", "JetBrainsMono Nerd Font", monospace;
+    font-size: 16px;
+    font-weight: 500;
+
+    padding: 6px 18px;       /* Oval shape */
+    margin: 8px 4px;         /* Floating effect */
+    border-radius: 50px;     /* Pill / oval */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* optional floating shadow */
+}
+
+/* Notification types / modules */
+.notification[data-type="cpu"],
+.notification[data-type="memory"],
+.notification[data-type="network"],
+.notification[data-type="system"] {
+    background-color: rgba(15, 15, 15, 0.9);
+    border-radius: 50px;
+}
+
+/* Hover effect */
+.notification:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+/* Urgent notifications */
+.notification[data-urgency="critical"] {
+    background-color: rgba(255, 0, 0, 0.9);
+    color: #ffffff;
+}
+
+/* Tray or small icons (if used) */
+.notification .icon {
+    padding: 0 15px;
+}
+
+/* Workspaces / actions buttons */
+.notification .button {
+    padding: 0 10px;
+    color: #666666;
+    background: transparent;
+    border: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.notification .button.active {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.notification .button:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+}

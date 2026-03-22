@@ -1,0 +1,82 @@
+/* Base Font and Global Styles */
+* {
+    font-family: "JetBrains Mono", "JetBrainsMono NF", "JetBrainsMono Nerd Font", monospace;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* The Main Notification Center Window */
+.control-center {
+    background: rgba(15, 15, 15, 0.9); /* OLED Black matching your Waybar */
+    color: #ffffff;
+    border-radius: 24px; /* Matches the pill look */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 10px;
+    padding: 10px;
+}
+
+/* Individual Notification Bubbles (The "Floating" look) */
+.notification {
+    background: rgba(30, 30, 30, 0.6);
+    border-radius: 20px;
+    margin: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.notification:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* The Title Bar & Buttons (Matching your #workspaces button style) */
+.widget-title {
+    padding: 10px;
+    margin: 5px;
+}
+
+.widget-title > button {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-radius: 50px; /* Pill shape */
+    padding: 6px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.widget-title > button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Do Not Disturb Toggle (Matching your pill modules) */
+.widget-dnd {
+    background: rgba(15, 15, 15, 0.9);
+    padding: 6px 18px;
+    margin: 8px 4px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.widget-dnd > switch {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.widget-dnd > switch:checked {
+    background: #ffffff; /* Active state */
+}
+
+.widget-dnd > switch slider {
+    background: #666666;
+    border-radius: 50px;
+}
+
+/* Control Center Buttons (Like "Clear All") */
+.control-center-list {
+    background: transparent;
+}
+
+/* Critical Notifications */
+.notification-critical {
+    border: 1px solid rgba(255, 0, 0, 0.5);
+}

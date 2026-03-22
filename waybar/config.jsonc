@@ -26,22 +26,31 @@
     },
 
     "pulseaudio": {
-        "format": "Vol: {volume}%",
-        "format-muted": "Muted",
+        "markup": true,
+        "format": "<span foreground='#7dd3fc'>󰕾</span> <span foreground='#e5e5e5'>{volume}%</span>",
+        "format-muted": "<span foreground='#f87171'>󰝟</span> <span foreground='#a3a3a3'>Muted</span>",
         "on-click": "pavucontrol"
     },
 
     "network": {
-        "format-wifi": "  {essid}",
-        "format-ethernet": "󰈀  {ifname}",
-        "format-disconnected": "Disconnected"
+        "markup": true,
+        "format-wifi": "<span foreground='#7dd3fc'>󰤨</span> <span foreground='#e5e5e5'>{essid}</span>",
+        "format-ethernet": "<span foreground='#38bdf8'>󰈀</span> <span foreground='#e5e5e5'>{ifname}</span>",
+        "format-disconnected": "<span foreground='#f87171'>󰤭</span> <span foreground='#a3a3a3'>Offline</span>"
     },
 
-    "cpu": { "format": "CPU: {usage}%" },
-    "memory": { "format": "Mem: {}%" },
+    "cpu": {
+        "markup": true,
+        "format": "<span foreground='#c4b5fd'>󰍛</span> <span foreground='#e5e5e5'>{usage}%</span>"
+    },
+    "memory": {
+        "markup": true,
+        "format": "<span foreground='#fcd34d'>󰘚</span> <span foreground='#e5e5e5'>{percentage}%</span>"
+    },
 
     "clock": {
-        "format": "{:%I:%M %p}",
+        "markup": true,
+        "format": "<span foreground='#6ee7b7'>󰥔</span> <span foreground='#e5e5e5'>{:%I:%M %p}</span>",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     }
 }

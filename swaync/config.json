@@ -1,0 +1,36 @@
+{
+  "$schema": "/etc/xdg/swaync/config.schema.json",
+  "positionX": "right",
+  "positionY": "top",
+  "layer": "overlay",
+  "control-center-width": 500,
+  "control-center-height": 600,
+  "notification-window-width": 500,
+  "transition-time": 200,
+  "hide-on-clear": false,
+  "pause-level": "same as cpu",
+  "widgets": [
+    "title",
+    "dnd",
+    "notifications",
+    "mpris"
+  ],
+  "widget-config": {
+    "title": {
+      "text": "Notifications",
+      "clear-all-button": true,
+      "button-text": "Clear All"
+    },
+    "dnd": {
+      "text": "Do Not Disturb"
+    },
+    "label": {
+      "max-lines": 5,
+      "text": "Label"
+    },
+    "mpris": {
+      "image-size": 96,
+      "image-radius": 12
+    }
+  }
+}

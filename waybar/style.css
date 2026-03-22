@@ -23,9 +23,27 @@ window#waybar {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Right-side modules: base text (Pango spans in config set icon/text hues) */
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#clock {
+    color: #e5e5e5;
+}
+
+#pulseaudio label,
+#network label,
+#cpu label,
+#memory label,
+#clock label {
+    color: #e5e5e5;
+}
+
 /* Specific styling for the tray icons */
 #tray {
     padding: 0 15px;
+    color: #e5e5e5;
 }
 
 /* Workspaces specific styling */
