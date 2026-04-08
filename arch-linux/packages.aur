@@ -1,0 +1,28 @@
+# AUR (yay or paru). One package per line; # starts a comment.
+# Install yay first: https://github.com/Jguer/yay (clone AUR, makepkg -si).
+
+# Nerd Font (icons in Waybar / terminal)
+ttf-jetbrains-mono-nerd
+
+# Hyprland extras (optional; install only what your hyprland.conf references)
+hyprpicker-git
+wlogout
+
+# Walker + Elephant (elephant-all bundles common providers; add splits below if you prefer minimal installs)
+walker-bin
+elephant-all
+
+# Fine-grained Elephant providers (uncomment if you do NOT use elephant-all)
+  elephant-calc
+  elephant-desktopapplications
+  elephant-files
+  elephant-runner
+  elephant-symbols
+  elephant-providerlist
+
+# Apps often used with this stack
+localsend-bin
+tidal-hifi
+
+# GTK theming (optional)
+nwg-look

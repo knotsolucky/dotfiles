@@ -1,0 +1,80 @@
+# Official Arch repos (pacman). One package per line; # starts a comment.
+
+# Dotfiles / deploy
+git
+base-devel
+stow
+
+# Hyprland stack
+hyprland
+hypridle
+hyprlock
+xdg-desktop-portal-hyprland
+qt5-wayland
+qt6-wayland
+
+# Bar, notifications, wallpaper
+waybar
+swaync
+swaybg
+
+# Terminals (this repo ships kitty, alacritty, ghostty)
+kitty
+alacritty
+ghostty
+
+# Launcher (pick one; rofi is in repos; remove if you use Walker from AUR only)
+rofi-wayland
+
+# Editor / CLI
+neovim
+fd
+ripgrep
+syncthing
+fzf
+bat
+eza
+zoxide
+lazygit
+yazi
+btop
+htop
+fastfetch
+
+# Audio (PipeWire)
+pipewire
+wireplumber
+pipewire-pulse
+
+# Polkit agent (pick one; KDE agent matches many Hyprland guides)
+polkit-kde-agent
+
+# Networking / VPN tooling
+networkmanager
+wireguard-tools
+openvpn
+networkmanager-openvpn
+nm-connection-editor
+
+# Bluetooth
+bluez
+bluez-utils
+
+# Session / input / screenshots (common Hyprland deps)
+brightnessctl
+pamixer
+grim
+slurp
+wf-recorder
+
+# Zsh plugins (paths used in many .zshrc snippets)
+zsh
+zsh-autosuggestions
+zsh-syntax-highlighting
+zsh-completions
+
+# Fonts (Nerd variant is in AUR; this is a good base font in repos)
+ttf-jetbrains-mono
+
+# Optional: maintenance
+pacman-contrib

@@ -1,13 +1,13 @@
 /* The main bar container */
 window#waybar {
-    background: transparent; /* Makes the bar background invisible so ovals "float" */
+    background: transparent;
     color: #ffffff;
     font-family: "JetBrains Mono", "JetBrainsMono NF", "JetBrainsMono Nerd Font", monospace;
     font-size: 16px;
     font-weight: 500;
 }
 
-/* Restoring the Oval Look for all modules */
+/* Square modules (no rounding) */
 #clock,
 #cpu,
 #memory,
@@ -16,10 +16,10 @@ window#waybar {
 #workspaces,
 #window,
 #tray {
-    background: rgba(15, 15, 15, 0.9); /* OLED Black/Dark Grey */
-    padding: 6px 18px;                 /* Padding for that oval shape */
-    margin: 8px 4px;                  /* Margin to create the floating effect */
-    border-radius: 50px;               /* This makes them ovals/pills! */
+    background: rgba(15, 15, 15, 0.9);
+    padding: 8px 16px;
+    margin: 8px 6px;
+    border-radius: 0;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -46,28 +46,29 @@ window#waybar {
     color: #e5e5e5;
 }
 
-/* Workspaces specific styling */
+/* Workspaces: tight chips (no min-width — that stretched single digits) */
 #workspaces {
-    padding: 0 5px;
+    padding: 0 2px;
 }
 
 #workspaces button {
-    padding: 0 10px;
+    padding: 0 5px;
+    margin: 1px;
+    min-height: 0;
     color: #666666;
     background: transparent;
     border: none;
-    transition: all 0.3s ease;
+    transition: color 0.15s ease, background-color 0.15s ease;
 }
 
 #workspaces button.active {
     color: #ffffff;
     background: rgba(255, 255, 255, 0.15);
-    border-radius: 50px; /* Active workspace also becomes an oval */
-    margin: 4px 2px;
+    border-radius: 0;
 }
 
 #workspaces button:hover {
     color: #ffffff;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 50px;
+    border-radius: 0;
 }
