@@ -1,6 +1,6 @@
 # Arch Linux setup (this dotfiles repo)
 
-Use this folder to install **packages** that match the apps configured in `~/dotfiles`. Config files themselves are deployed with **GNU Stow** via [`../scripts/restow-config.sh`](../scripts/restow-config.sh) (see [`../documentation/dotfiles-workflow.md`](../documentation/dotfiles-workflow.md)).
+Use this folder to install **packages** that match the apps configured in `~/dotfiles`. Dotfiles for `~/.config` live under **[`../config/`](../config/)**; **`install.sh` copies** each subfolder there into `~/.config/` after package installs. Files under **[`../home/`](../home/)** (e.g. **`.zshrc`**) are copied into **`$HOME`**. Use **`chsh -s /bin/zsh`** once if zsh should be your login shell. You can also use **GNU Stow** via [`../scripts/restow-config.sh`](../scripts/restow-config.sh) (symlinks instead of copies; see [`../documentation/dotfiles-workflow.md`](../documentation/dotfiles-workflow.md)).
 
 ## Quick start
 
@@ -10,20 +10,28 @@ chmod +x ./install.sh
 ./install.sh
 ```
 
-- Installs everything listed in [`packages.official`](packages.official) with `pacman` (**`--noconfirm`** by default).
-- If `yay` is installed, installs [`packages.aur`](packages.aur) next (**`yay -S --noconfirm`** by default).
+Package names live **in [`install.sh`](install.sh)** as `OFFICIAL_PKGS` (pacman) and `AUR_PKGS` (yay/paru). Edit those arrays, then run the script.
 
-Flags:
+**[`Brewfile`](../Brewfile) parity:** Formulas map to `[extra]`/`[core]` where possible; **`python@3.11`** is not installed via AUR `python311` (that rebuilds CPython from source for a long time). The script installs **`uv`** from `[extra]` — run **`uv python install 3.11`** after install for a managed 3.11. `neofetch` → AUR `neofetch`; `mysql` / `mysql@8.0` → `mariadb`; `dotnet` + cask `dotnet-sdk` → `dotnet-runtime` + `dotnet-sdk`; nerd fonts → `otf-*` / `ttf-*` in `[extra]`. **`alt-tab`** (cask) has no Linux equivalent in the script.
 
-| Flag | Meaning |
-|------|--------|
-| `--official-only` | Only `pacman` |
-| `--aur-only` | Only `yay` (after official deps are satisfied) |
-| `--confirm` | Turn off `--noconfirm` for `pacman` and `yay` (prompts for each step) |
+Optional: `AUR_HELPER=paru ./install.sh` if you use paru instead of yay. The script uses `--noconfirm` for pacman and the AUR helper.
+
+After packages, **`install.sh` enables** (best-effort; missing units are skipped):
+
+- **User:** `pipewire`, `wireplumber`, `pipewire-pulse`, `syncthing`, `hypridle`, `plasma-polkit-agent`, `xdg-desktop-portal-hyprland`. Hyprland also runs `dbus-update-activation-environment`, **`graphical-session.target`**, **Walker**, and **Elephant** via **`exec-once`** in **`config/hypr/hyprland.conf`** (no custom unit files in this repo).
+- **System:** `NetworkManager`, `NetworkManager-dispatcher`, `NetworkManager-wait-online`, `bluetooth`, `docker`, `mariadb`
+
+`systemctl --user` needs a normal login session (logind); if you run the script over plain SSH with no user dbus, user units may no-op until you log in graphically once and run the `systemctl --user enable --now …` lines yourself.
+
+### If yay fails on `hyprutils-git` / `hyprwayland-scanner-git`
+
+Repo **hyprland** uses stable **hyprutils** and **hyprwayland-scanner** from `[extra]`. AUR **`*-git`** Hypr packages want the `-git` variants of those libraries and **conflict** with the repo packages.
+
+Do **not** put `hyprpicker-git` (or other `hypr*-git` tools) in `AUR_PKGS`. Use **hyprpicker** from `[extra]` — it is already listed in `OFFICIAL_PKGS`.
+
+If an old yay run left bad build deps in the batch, install lists without `-git` Hypr packages, then retry. Optional cleanup: `yay -Yc` (review what it removes).
 
 ## Install `yay` (one-time)
-
-`yay` is not in the main repos:
 
 ```sh
 sudo pacman -S --needed base-devel git
@@ -33,75 +41,43 @@ cd yay
 makepkg -si
 ```
 
-Then run `./install.sh --aur-only` if you already ran the official pass.
-
 ## Stow / symlinks (important)
-
-This repo expects **per-app targets**, not `stow -t ~/.config hypr waybar` (that flattens names and breaks XDG paths). Always use:
 
 ```sh
 ~/dotfiles/scripts/restow-config.sh
 ```
 
-## Optional: Walker + Elephant user services
+## Services (manual)
 
-After installing the Walker/Elephant AUR packages (if you use them):
-
-```sh
-systemctl --user enable --now elephant.service
-# Optional, if the package ships a user unit:
-systemctl --user enable --now walker.service 2>/dev/null || true
-```
-
-Check status:
+If you need to re-run systemd enables:
 
 ```sh
-systemctl --user status elephant
+systemctl --user enable --now \
+  pipewire.service wireplumber.service pipewire-pulse.service \
+  syncthing.service hypridle.service \
+  plasma-polkit-agent.service xdg-desktop-portal-hyprland.service
+sudo systemctl enable --now \
+  NetworkManager.service NetworkManager-dispatcher.service NetworkManager-wait-online.service \
+  bluetooth.service docker.service mariadb.service
 ```
 
-## Optional: Hyprland-related user services (audio)
-
-Often PipeWire is socket-activated; if you want explicit units:
+**Walker + Elephant** (same as Hyprland `exec-once`, for a one-off terminal test):
 
 ```sh
-systemctl --user enable --now pipewire.service wireplumber.service
+walker --gapplication-service & elephant &
 ```
-
-## Optional: system services (typical workstation)
-
-```sh
-sudo systemctl enable --now NetworkManager.service
-sudo systemctl enable --now bluetooth.service
-```
-
-## Zsh plugins on Arch
-
-These match common `source` lines in `.zshrc`:
-
-```sh
-sudo pacman -S --needed zsh-autosuggestions zsh-syntax-highlighting zsh-completions
-```
-
-Paths are typically:
-
-- `/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh`
-- `/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh`
-
-## Customising package sets
-
-Edit [`packages.official`](packages.official) and [`packages.aur`](packages.aur), then re-run `./install.sh`. Remove lines you do not want; lines starting with `#` are comments.
 
 ## Folder → package map (configs in this repo)
 
 | Config dir in repo | Typical Arch packages |
 |--------------------|------------------------|
-| `hypr/` | `hyprland`, `hypridle`, `hyprlock` |
-| `waybar/` | `waybar` |
-| `swaync/` | `swaync` |
-| `kitty/`, `alacritty/`, `ghostty/` | matching terminal packages |
-| `nvim/` | `neovim` |
-| `yazi/` | `yazi` |
-| `btop/`, `htop/`, `fastfetch/` | same names |
-| `pipewire/` | `pipewire`, `wireplumber` |
-
-Add a `walker/` (or `elephant/`) directory to the repo and extend [`../scripts/restow-config.sh`](../scripts/restow-config.sh) if you track those configs here.
+| `config/hypr/` | `hyprland`, `hypridle`, `hyprlock` |
+| `config/waybar/` | `waybar` |
+| `config/swaync/` | `swaync` |
+| `config/kitty/`, `config/alacritty/`, `config/ghostty/` | matching terminal packages |
+| `config/nvim/` | `neovim` |
+| `config/yazi/` | `yazi` |
+| `config/btop/`, `config/htop/`, `config/fastfetch/` | same names |
+| `config/pipewire/` | `pipewire`, `wireplumber` |
+| `config/tmux/` | `tmux` |
+| `home/.zshrc` | `zsh`, `zsh-autosuggestions`, `zsh-syntax-highlighting`, `fzf`, `starship`, `zoxide`, `neovim` (as `EDITOR`); run **`eza`**, **`bat`**, **`lazygit`**, **`yazi`** by name |

@@ -55,3 +55,6 @@ cask "font-jetbrains-mono-nerd-font"
 cask "font-iosevka-term-nerd-font"
 cask "font-comic-shanns-mono-nerd-font"
 cask "font-fira-code-nerd-font"
+
+# Linux (arch-linux/install.sh): mariadb ≈ mysql + mysql@8.0; neofetch → AUR neofetch.
+# python@3.11: install.sh includes `uv` — run `uv python install 3.11` (no AUR compile). alt-tab cask is macOS-only.

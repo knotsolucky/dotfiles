@@ -1,90 +1,52 @@
 #!/usr/bin/env bash
 set -euo pipefail
+here=$(cd "$(dirname "$0")" && pwd)
+cd "$here"
 
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT="$(cd "${DIR}/.." && pwd)"
+OFFICIAL_PKGS=(
+  git base-devel stow hyprland hyprutils hyprwayland-scanner hypridle hyprlock hyprpicker
+  xdg-desktop-portal-hyprland qt5-wayland qt6-wayland waybar swaync swaybg kitty alacritty
+  ghostty rofi-wayland neovim fd ripgrep syncthing fzf bat eza zoxide lazygit yazi btop htop
+  fastfetch pipewire wireplumber pipewire-pulse polkit-kde-agent networkmanager wireguard-tools
+  openvpn networkmanager-openvpn nm-connection-editor bluez bluez-utils brightnessctl pamixer
+  grim slurp wf-recorder zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions
+  ttf-jetbrains-mono pacman-contrib cmake docker docker-compose dotnet-sdk ffmpeg firefox gcc
+  github-cli go jdk-openjdk llvm lua make maven mariadb dotnet-runtime nodejs npm putty python
+  python-pip uv raylib rust sdl2 starship tmux tree unzip zip ttf-fira-code otf-geist-mono-nerd
+  otf-comicshanns-nerd ttf-firacode-nerd ttf-iosevkaterm-nerd ttf-jetbrains-mono-nerd
+)
 
-usage() {
-  echo "Usage: $0 [--official-only | --aur-only] [--confirm]" >&2
-  echo "  Default: non-interactive (pacman/yay --noconfirm), then AUR via yay if present." >&2
-  echo "  --confirm  prompt before installs (no --noconfirm)" >&2
-  exit 1
-}
+AUR_PKGS=(
+  elephant-all wlogout walker-bin localsend-bin tidal-hifi nwg-look 1password cursor-bin
+  obsidian-bin neofetch visual-studio-code-bin
+)
 
-read_packages() {
-  local file=$1
-  grep -v '^#' "${file}" | sed '/^[[:space:]]*$/d' || true
-}
+sudo pacman -S --needed --noconfirm "${OFFICIAL_PKGS[@]}"
 
-OFFICIAL_ONLY=0
-AUR_ONLY=0
-NOCONFIRM=1
-while [[ $# -gt 0 ]]; do
-  case "$1" in
-    --official-only) OFFICIAL_ONLY=1 ;;
-    --aur-only) AUR_ONLY=1 ;;
-    --confirm) NOCONFIRM=0 ;;
-    --yes) ;; # deprecated; default is already non-interactive
-    -h | --help) usage ;;
-    *) usage ;;
-  esac
-  shift
+h="${AUR_HELPER:-yay}"
+command -v "$h" >/dev/null 2>&1 || h=paru
+command -v "$h" >/dev/null 2>&1 || { echo "need yay or paru" >&2; exit 1; }
+((${#AUR_PKGS[@]})) && "$h" -S --needed --noconfirm "${AUR_PKGS[@]}"
+
+repo=$(cd "$here/.." && pwd)
+dest=${XDG_CONFIG_HOME:-$HOME/.config}
+shopt -s nullglob
+for d in "$repo/config"/*/; do
+  n=$(basename "$d")
+  mkdir -p "$dest/$n"
+  cp -a "$d"/. "$dest/$n"/
+done
+shopt -u nullglob
+
+if [[ -d "$repo/home" ]]; then
+  cp -a "$repo/home"/. "$HOME"/
+fi
+
+for s in pipewire wireplumber pipewire-pulse syncthing hypridle plasma-polkit-agent \
+  xdg-desktop-portal-hyprland; do
+  systemctl --user enable --now "${s}.service" 2>/dev/null || true
 done
 
-mapfile -t OFFICIAL_PKGS < <(read_packages "${DIR}/packages.official")
-mapfile -t AUR_PKGS < <(read_packages "${DIR}/packages.aur")
-
-install_official() {
-  if [[ ${#OFFICIAL_PKGS[@]} -eq 0 ]]; then
-    echo "No packages in packages.official"
-    return 0
-  fi
-  echo "Installing ${#OFFICIAL_PKGS[@]} official packages (pacman)..."
-  if [[ "${NOCONFIRM}" -eq 1 ]]; then
-    sudo pacman -S --needed --noconfirm "${OFFICIAL_PKGS[@]}"
-  else
-    sudo pacman -S --needed "${OFFICIAL_PKGS[@]}"
-  fi
-}
-
-install_aur() {
-  if [[ ${#AUR_PKGS[@]} -eq 0 ]]; then
-    echo "No packages in packages.aur"
-    return 0
-  fi
-  if ! command -v yay >/dev/null 2>&1; then
-    echo "yay not found. Install from AUR, then re-run: $0 --aur-only" >&2
-    echo "See: https://github.com/Jguer/yay" >&2
-    return 1
-  fi
-  echo "Installing ${#AUR_PKGS[@]} AUR packages (yay)..."
-  if [[ "${NOCONFIRM}" -eq 1 ]]; then
-    yay -S --needed --noconfirm "${AUR_PKGS[@]}"
-  else
-    yay -S --needed "${AUR_PKGS[@]}"
-  fi
-}
-
-if [[ "${AUR_ONLY}" -eq 1 ]]; then
-  install_aur
-  exit 0
-fi
-
-install_official
-
-if [[ "${OFFICIAL_ONLY}" -eq 1 ]]; then
-  exit 0
-fi
-
-if command -v yay >/dev/null 2>&1; then
-  install_aur || true
-else
-  echo ""
-  echo "Skip AUR: yay not installed. After installing yay, run:"
-  echo "  ${DIR}/install.sh --aur-only"
-fi
-
-echo ""
-echo "Deploy configs from this repo (symlinks via Stow):"
-echo "  ${ROOT}/scripts/restow-config.sh"
-echo "Docs: ${ROOT}/documentation/dotfiles-workflow.md"
+for s in NetworkManager NetworkManager-dispatcher NetworkManager-wait-online bluetooth docker mariadb; do
+  sudo systemctl enable --now "${s}.service" 2>/dev/null || true
+done
