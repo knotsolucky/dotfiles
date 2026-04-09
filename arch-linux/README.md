@@ -12,7 +12,7 @@ chmod +x ./install.sh
 
 Package names live **in [`install.sh`](install.sh)** as `OFFICIAL_PKGS` (pacman) and `AUR_PKGS` (yay/paru). Edit those arrays, then run the script.
 
-**[`Brewfile`](../Brewfile) parity:** Browsers: **`google-chrome`**, **`vivaldi`** (`[extra]`), **`zen`** (cask) ↔ Arch **`google-chrome`** + **`zen-browser-bin`** (AUR) + **`vivaldi`** (pacman). Formulas map to `[extra]`/`[core]` where possible; **`python@3.11`** is not installed via AUR `python311` (that rebuilds CPython from source for a long time). The script installs **`uv`** from `[extra]` — run **`uv python install 3.11`** after install for a managed 3.11. `neofetch` → AUR `neofetch`; `mysql` / `mysql@8.0` → `mariadb`; `dotnet` + cask `dotnet-sdk` → `dotnet-runtime` + `dotnet-sdk`; nerd fonts → `otf-*` / `ttf-*` in `[extra]`. **`alt-tab`** (cask) has no Linux equivalent in the script.
+**[`Brewfile`](../Brewfile) parity:** **`bun`** (formula) ↔ Arch **`bun`** (`[extra]`). Browsers: **`google-chrome`**, **`vivaldi`** (`[extra]`), **`zen`** (cask) ↔ Arch **`google-chrome`** + **`zen-browser-bin`** (AUR) + **`vivaldi`** (pacman). Formulas map to `[extra]`/`[core]` where possible; **`python@3.11`** is not installed via AUR `python311` (that rebuilds CPython from source for a long time). The script installs **`uv`** from `[extra]` — run **`uv python install 3.11`** after install for a managed 3.11. `neofetch` → AUR `neofetch`; `mysql` / `mysql@8.0` → `mariadb`; `dotnet` + cask `dotnet-sdk` → `dotnet-runtime` + `dotnet-sdk`; nerd fonts → `otf-*` / `ttf-*` in `[extra]`. **`alt-tab`** (cask) has no Linux equivalent in the script.
 
 Optional: `AUR_HELPER=paru ./install.sh` if you use paru instead of yay. The script uses `--noconfirm` for pacman and the AUR helper.
 
@@ -84,4 +84,4 @@ walker --gapplication-service & elephant &
 | `config/lazygit/` | `lazygit` |
 | `config/pipewire/` | `pipewire`, `wireplumber` |
 | `home/.tmux.conf` | `tmux` + [TPM](https://github.com/tmux-plugins/tpm) (`install.sh` clones to `~/.tmux/plugins/tpm`, runs `install_plugins`) |
-| `home/.zshrc` | `zsh` stack from `install.sh`: plugins, `fzf`, `zoxide`, `starship`, `ls`/`ll` → `eza` |
+| `home/.zshrc` | `zsh` stack from `install.sh`: plugins, `fzf`, `zoxide`, `starship`; `brew shellenv` if `brew` is on `PATH`; `ls` / `ll` / `lt` → `eza` when `eza` is on `PATH` ([`../documentation/eza.md`](../documentation/eza.md)) |

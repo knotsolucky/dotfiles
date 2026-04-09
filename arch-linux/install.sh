@@ -11,7 +11,7 @@ OFFICIAL_PKGS=(
   openvpn networkmanager-openvpn nm-connection-editor bluez bluez-utils brightnessctl pamixer
   grim slurp wf-recorder zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions
   ttf-jetbrains-mono pacman-contrib cmake croc docker docker-compose dotnet-sdk ffmpeg firefox vivaldi gcc
-  github-cli go jdk-openjdk llvm lua make maven mariadb dotnet-runtime nodejs npm putty python
+  github-cli go jdk-openjdk llvm lua make maven mariadb dotnet-runtime nodejs npm bun putty python
   python-pip uv raylib rust sdl2 starship tmux tree unzip zip ttf-fira-code otf-geist-mono-nerd
   otf-comicshanns-nerd ttf-firacode-nerd ttf-iosevkaterm-nerd ttf-jetbrains-mono-nerd
 )
