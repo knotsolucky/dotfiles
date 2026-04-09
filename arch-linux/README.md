@@ -1,6 +1,6 @@
 # Arch Linux setup (this dotfiles repo)
 
-Use this folder to install **packages** that match the apps configured in `~/dotfiles`. Dotfiles for `~/.config` live under **[`../config/`](../config/)**; **`install.sh` copies** each subfolder there into `~/.config/` after package installs. Files under **[`../home/`](../home/)** (e.g. **`.zshrc`**) are copied into **`$HOME`**. Use **`chsh -s /bin/zsh`** once if zsh should be your login shell. You can also use **GNU Stow** via [`../scripts/restow-config.sh`](../scripts/restow-config.sh) (symlinks instead of copies; see [`../documentation/dotfiles-workflow.md`](../documentation/dotfiles-workflow.md)).
+Use this folder to install **packages** that match the apps configured in `~/dotfiles`. Dotfiles for `~/.config` live under **[`../config/`](../config/)**; **`install.sh` copies** each subfolder there into `~/.config/` after package installs. Files under **[`../home/`](../home/)** (e.g. **`.zshrc`**) are copied into **`$HOME`**. Use **`chsh -s /bin/zsh`** once if zsh should be your login shell. You can also use **GNU Stow** via [`../scripts/restow-config.sh`](../scripts/restow-config.sh) (symlinks into `~/.config` / `~` instead of copies).
 
 ## Quick start
 
@@ -12,7 +12,7 @@ chmod +x ./install.sh
 
 Package names live **in [`install.sh`](install.sh)** as `OFFICIAL_PKGS` (pacman) and `AUR_PKGS` (yay/paru). Edit those arrays, then run the script.
 
-**[`Brewfile`](../Brewfile) parity:** Formulas map to `[extra]`/`[core]` where possible; **`python@3.11`** is not installed via AUR `python311` (that rebuilds CPython from source for a long time). The script installs **`uv`** from `[extra]` — run **`uv python install 3.11`** after install for a managed 3.11. `neofetch` → AUR `neofetch`; `mysql` / `mysql@8.0` → `mariadb`; `dotnet` + cask `dotnet-sdk` → `dotnet-runtime` + `dotnet-sdk`; nerd fonts → `otf-*` / `ttf-*` in `[extra]`. **`alt-tab`** (cask) has no Linux equivalent in the script.
+**[`Brewfile`](../Brewfile) parity:** Browsers: **`google-chrome`**, **`vivaldi`** (`[extra]`), **`zen`** (cask) ↔ Arch **`google-chrome`** + **`zen-browser-bin`** (AUR) + **`vivaldi`** (pacman). Formulas map to `[extra]`/`[core]` where possible; **`python@3.11`** is not installed via AUR `python311` (that rebuilds CPython from source for a long time). The script installs **`uv`** from `[extra]` — run **`uv python install 3.11`** after install for a managed 3.11. `neofetch` → AUR `neofetch`; `mysql` / `mysql@8.0` → `mariadb`; `dotnet` + cask `dotnet-sdk` → `dotnet-runtime` + `dotnet-sdk`; nerd fonts → `otf-*` / `ttf-*` in `[extra]`. **`alt-tab`** (cask) has no Linux equivalent in the script.
 
 Optional: `AUR_HELPER=paru ./install.sh` if you use paru instead of yay. The script uses `--noconfirm` for pacman and the AUR helper.
 
@@ -78,6 +78,10 @@ walker --gapplication-service & elephant &
 | `config/nvim/` | `neovim` |
 | `config/yazi/` | `yazi` |
 | `config/btop/`, `config/htop/`, `config/fastfetch/` | same names |
+| `config/starship/` | `starship` (via `STARSHIP_CONFIG` in `home/.zshrc`) |
+| `config/bat/` | `bat` |
+| `config/neofetch/` | AUR `neofetch` |
+| `config/lazygit/` | `lazygit` |
 | `config/pipewire/` | `pipewire`, `wireplumber` |
-| `config/tmux/` | `tmux` |
-| `home/.zshrc` | `zsh`, `zsh-autosuggestions`, `zsh-syntax-highlighting`, `fzf`, `starship`, `zoxide`, `neovim` (as `EDITOR`); run **`eza`**, **`bat`**, **`lazygit`**, **`yazi`** by name |
+| `home/.tmux.conf` | `tmux` + [TPM](https://github.com/tmux-plugins/tpm) (`install.sh` clones to `~/.tmux/plugins/tpm`, runs `install_plugins`) |
+| `home/.zshrc` | `zsh` stack from `install.sh`: plugins, `fzf`, `zoxide`, `starship`, `ls`/`ll` → `eza` |

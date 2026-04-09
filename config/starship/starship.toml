@@ -1,0 +1,37 @@
+add_newline = false
+format = "$directory$git_branch$git_status$cmd_duration$line_break$character"
+
+[character]
+success_symbol = "[❯](bold green) "
+error_symbol = "[❯](bold red) "
+vimcmd_symbol = "[❮](bold green) "
+
+[directory]
+truncation_length = 5
+truncate_to_repo = true
+style = "bold cyan"
+read_only_style = "197"
+read_only = "🔒"
+repo_root_style = "bold blue"
+
+[git_branch]
+symbol = " "
+style = "bold magenta"
+truncation_length = 24
+
+[git_status]
+style = "bold yellow"
+format = '([\[$all_status$ahead_behind\]]($style) )'
+
+[cmd_duration]
+min_time = 2_000
+format = "[$duration](bold dim white) "
+
+[nodejs]
+disabled = true
+
+[rust]
+disabled = true
+
+[python]
+disabled = true

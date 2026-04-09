@@ -1,57 +1,22 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
-  "general": {
-    "detectVersion": false
-  },
-  "logo": null,
+  "logo": { "type": "small", "source": "arch" },
   "display": {
     "separator": " · ",
-    "brightColor": false,
     "color": {
-      "title": "bright_cyan",
+      "title": "bright_magenta",
       "keys": "cyan",
-      "separator": "bright_black",
       "output": "white"
     },
-    "key": {
-      "width": 0,
-      "type": "string"
-    }
+    "key": { "width": 8 }
   },
   "modules": [
-    {
-      "type": "title",
-      "format": "{6}{7}{8}"
-    },
-    {
-      "type": "os",
-      "key": "os",
-      "format": "{3} {12}"
-    },
-    {
-      "type": "kernel",
-      "key": "kern",
-      "format": "{2}"
-    },
-    {
-      "type": "wm",
-      "key": "wm",
-      "format": "{2}"
-    },
-    {
-      "type": "uptime",
-      "key": "up",
-      "format": "{10}"
-    },
-    {
-      "type": "memory",
-      "key": "ram",
-      "format": "{1} / {2}"
-    },
-    {
-      "type": "packages",
-      "key": "pkg",
-      "format": "{2} pkg"
-    }
+    { "type": "title", "format": "{6}{7}{8}" },
+    { "type": "os", "key": "os", "format": "{3}" },
+    { "type": "kernel", "key": "kern", "format": "{2}" },
+    { "type": "wm", "key": "wm", "format": "{2}" },
+    { "type": "uptime", "key": "up", "format": "{10}" },
+    { "type": "memory", "key": "ram", "format": "{1} / {2}" },
+    { "type": "cpu", "key": "cpu", "format": "{1}" }
   ]
 }
