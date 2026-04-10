@@ -6,15 +6,20 @@ CFG="${XDG_CONFIG_HOME:-$HOME/.config}"
 OFFICIAL_PKGS=(
   git base-devel stow hyprland hyprutils hyprwayland-scanner hypridle hyprlock hyprpicker
   xdg-desktop-portal-hyprland qt5-wayland qt6-wayland waybar swaync swaybg kitty alacritty
-  ghostty rofi-wayland neovim fd ripgrep syncthing fzf bat eza zoxide lazygit yazi btop htop
+  ghostty rofi-wayland neovim tree-sitter fd ripgrep syncthing fzf bat eza zoxide lazygit yazi btop htop
   fastfetch pipewire wireplumber pipewire-pulse polkit-kde-agent networkmanager wireguard-tools
   openvpn networkmanager-openvpn nm-connection-editor bluez bluez-utils brightnessctl pamixer
-  grim slurp wf-recorder zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions
+  grim slurp hyprshot wf-recorder zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions
   ttf-jetbrains-mono pacman-contrib cmake croc docker docker-compose dotnet-sdk ffmpeg firefox vivaldi gcc
-  github-cli go jdk-openjdk llvm lua make maven mariadb dotnet-runtime nodejs npm bun putty python
+  github-cli go jdk-openjdk llvm lua make maven mariadb dotnet-runtime npm bun putty python
   python-pip uv raylib rust sdl2 starship tmux tree unzip zip ttf-fira-code otf-geist-mono-nerd
   otf-comicshanns-nerd ttf-firacode-nerd ttf-iosevkaterm-nerd ttf-jetbrains-mono-nerd
 )
+# nodejs (current) conflicts with nodejs-lts-*; npm only needs a provider of nodejs (e.g. nodejs-lts-jod).
+if ! pacman -Qqo /usr/bin/node &>/dev/null; then
+  OFFICIAL_PKGS+=(nodejs)
+fi
+
 AUR_PKGS=(
   elephant-all google-chrome wlogout walker-bin localsend-bin tidal-hifi nwg-look 1password cursor-bin
   obsidian-bin neofetch visual-studio-code-bin zen-browser-bin

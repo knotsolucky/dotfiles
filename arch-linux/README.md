@@ -16,6 +16,10 @@ Package names live **in [`install.sh`](install.sh)** as `OFFICIAL_PKGS` (pacman)
 
 Optional: `AUR_HELPER=paru ./install.sh` if you use paru instead of yay. The script uses `--noconfirm` for pacman and the AUR helper.
 
+### Node.js: `nodejs` vs `nodejs-lts-*`
+
+Arch’s **`nodejs`** (current major) **conflicts** with **`nodejs-lts-jod`**, **`nodejs-lts-krypton`**, **`nodejs-lts-iron`**, etc. The script **does not** always install `nodejs`: it only adds **`nodejs`** if no pacman-owned **`/usr/bin/node`** exists (so an existing LTS install is left alone and **`npm`** still resolves against `Provides: nodejs=…` from the LTS package). To switch families later, remove one side explicitly (e.g. `sudo pacman -R nodejs-lts-jod` then re-run the script or `sudo pacman -S nodejs npm`).
+
 After packages, **`install.sh` enables** (best-effort; missing units are skipped):
 
 - **User:** `pipewire`, `wireplumber`, `pipewire-pulse`, `syncthing`, `hypridle`, `plasma-polkit-agent`, `xdg-desktop-portal-hyprland`. Hyprland also runs `dbus-update-activation-environment`, **`graphical-session.target`**, **Walker**, and **Elephant** via **`exec-once`** in **`config/hypr/hyprland.conf`** (no custom unit files in this repo).
@@ -71,11 +75,11 @@ walker --gapplication-service & elephant &
 
 | Config dir in repo | Typical Arch packages |
 |--------------------|------------------------|
-| `config/hypr/` | `hyprland`, `hypridle`, `hyprlock` |
+| `config/hypr/` | `hyprland`, `hypridle`, `hyprlock`, `hyprshot` (screenshots; also `grim` / `slurp`) |
 | `config/waybar/` | `waybar` |
 | `config/swaync/` | `swaync` |
 | `config/kitty/`, `config/alacritty/`, `config/ghostty/` | matching terminal packages |
-| `config/nvim/` | `neovim` |
+| `config/nvim/` | `neovim`, `tree-sitter` (CLI for nvim-treesitter parsers) — [`../documentation/arch-linux-nvim.md`](../documentation/arch-linux-nvim.md) |
 | `config/yazi/` | `yazi` |
 | `config/btop/`, `config/htop/`, `config/fastfetch/` | same names |
 | `config/starship/` | `starship` (via `STARSHIP_CONFIG` in `home/.zshrc`) |

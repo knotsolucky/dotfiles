@@ -1,47 +1,80 @@
 return {
   {
-    "neovim/nvim-lspconfig",
-    lazy = false,
-    dependencies = { "hrsh7th/cmp-nvim-lsp", "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" },
-  },
-  {
-    "williamboman/mason.nvim",
-    lazy = false,
-    build = ":MasonUpdate",
-    config = function() require("mason").setup() end,
-  },
-  {
-    "frostplexx/mason-bridge.nvim",
-    lazy = false,
-    dependencies = "williamboman/mason.nvim",
-    config = function() require("mason-bridge").setup({}) end,
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    lazy = false,
+    "mason-org/mason-lspconfig.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "mason-org/mason.nvim",
+      "neovim/nvim-lspconfig",
+      {
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+          "hrsh7th/cmp-nvim-lsp",
+          "hrsh7th/cmp-buffer",
+          "hrsh7th/cmp-path",
+          "hrsh7th/cmp-cmdline",
+          "L3MON4D3/LuaSnip",
+          "saadparwaiz1/cmp_luasnip",
+          "windwp/nvim-autopairs",
+        },
+      },
+    },
     config = function()
-      local cap = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), require("cmp_nvim_lsp").default_capabilities())
-      local function on_attach(_, bufnr)
-        local m, o = vim.keymap.set, { buffer = bufnr }
-        m("n", "gd", vim.lsp.buf.definition, o)
-        m("n", "gD", vim.lsp.buf.declaration, o)
-        m("n", "gr", vim.lsp.buf.references, o)
-        m("n", "K", vim.lsp.buf.hover, o)
-        m("n", "<leader>ca", function()
-          require("telescope.builtin").lsp_code_actions({ bufnr = bufnr })
-        end, vim.tbl_extend("force", o, { desc = "Code action (Telescope)" }))
-        m("n", "<leader>cf", vim.lsp.buf.format, vim.tbl_extend("force", o, { desc = "Format" }))
-      end
-      local mlsp = require("mason-lspconfig")
-      local mappings = require("mason-lspconfig.mappings").get_mason_map()
-      for _, name in ipairs(mlsp.get_installed_servers()) do
-        vim.lsp.config(name, { capabilities = cap, on_attach = on_attach })
-      end
-      require("mason-registry"):on("package:install:success", vim.schedule_wrap(function(pkg)
-        local name = mappings.package_to_lspconfig[pkg.name]
-        if name then vim.lsp.config(name, { capabilities = cap, on_attach = on_attach }) end
-      end))
-      mlsp.setup({ automatic_installation = true, ensure_installed = {} })
+      require("nvim-autopairs").setup({})
+      local cmp = require("cmp")
+      cmp.setup({
+        snippet = {
+          expand = function(args)
+            require("luasnip").lsp_expand(args.body)
+          end,
+        },
+        mapping = cmp.mapping.preset.insert({
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-e>"] = cmp.mapping.abort(),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        }),
+        sources = cmp.config.sources(
+          { { name = "nvim_lsp" }, { name = "luasnip" } },
+          { { name = "buffer", keyword_length = 3 } }
+        ),
+      })
+      cmp.setup.cmdline({ "/", "?" }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = { { name = "buffer" } },
+      })
+      cmp.setup.cmdline(":", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
+      })
+      cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
+
+      vim.lsp.config("*", {
+        capabilities = vim.tbl_deep_extend(
+          "force",
+          vim.lsp.protocol.make_client_capabilities(),
+          require("cmp_nvim_lsp").default_capabilities()
+        ),
+      })
+
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("user_lsp", { clear = true }),
+        callback = function(args)
+          local o = { buffer = args.buf }
+          local function map(lhs, rhs, desc)
+            vim.keymap.set("n", lhs, rhs, vim.tbl_extend("force", o, { desc = desc }))
+          end
+          map("gd", vim.lsp.buf.definition, "Definition")
+          map("gD", vim.lsp.buf.declaration, "Declaration")
+          map("gr", vim.lsp.buf.references, "References")
+          map("K", vim.lsp.buf.hover, "Hover")
+          map("<leader>rn", vim.lsp.buf.rename, "Rename")
+          map("<leader>ca", vim.lsp.buf.code_action, "Code action")
+        end,
+      })
+
+      require("mason-lspconfig").setup({
+        ensure_installed = require("config.lsp_servers"),
+        automatic_enable = true,
+      })
     end,
   },
 }
