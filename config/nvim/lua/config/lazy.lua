@@ -3,5 +3,5 @@ return {
   git = { filter = false },
   rocks = { enabled = false },
   install = { colorscheme = { "catppuccin" } },
-  checker = { enabled = true },
+  checker = { enabled = true, notify = false },
 }

@@ -1,74 +1,92 @@
-/* The main bar container */
+/* Floating pill bar — SwayNC-adjacent tokens (config/swaync/style.css) */
 window#waybar {
-    background: transparent;
+    background: rgba(15, 15, 15, 0.92);
     color: #ffffff;
-    font-family: "JetBrains Mono", "JetBrainsMono NF", "JetBrainsMono Nerd Font", monospace;
-    font-size: 16px;
+    font-family: "Liga SFMono Nerd Font", "SFMono Nerd Font", monospace;
+    font-size: 14px;
     font-weight: 500;
-}
-
-/* Square modules (no rounding) */
-#clock,
-#cpu,
-#memory,
-#network,
-#pulseaudio,
-#workspaces,
-#window,
-#tray {
-    background: rgba(15, 15, 15, 0.9);
-    padding: 8px 16px;
-    margin: 8px 6px;
-    border-radius: 0;
+    border-radius: 999px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+    cursor: default;
 }
 
-/* Right-side modules: base text (Pango spans in config set icon/text hues) */
+.modules-left,
+.modules-center,
+.modules-right {
+    padding: 5px 12px 6px;
+}
+
+/* Module chips ~ SwayNC notification bubbles */
+#clock,
+#clock\.date,
+#clock\.time,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#window,
+#mpris,
+#tray,
+#custom-power {
+    background: rgba(30, 30, 30, 0.55);
+    padding: 5px 14px;
+    margin: 2px 3px;
+    min-height: 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 #pulseaudio,
 #network,
 #cpu,
 #memory,
-#clock {
-    color: #e5e5e5;
+#clock,
+#clock\.date,
+#clock\.time,
+#mpris {
+    color: #ffffff;
 }
 
 #pulseaudio label,
 #network label,
 #cpu label,
 #memory label,
-#clock label {
-    color: #e5e5e5;
+#clock label,
+#clock\.date label,
+#clock\.time label,
+#mpris label {
+    color: inherit;
 }
 
-/* Specific styling for the tray icons */
 #tray {
-    padding: 0 15px;
-    color: #e5e5e5;
+    padding: 4px 10px;
+    color: #ffffff;
 }
 
-/* Workspaces: tight chips (no min-width — that stretched single digits) */
+#custom-power {
+    padding: 5px 12px;
+}
+
 #workspaces {
-    padding: 0 2px;
+    background: transparent;
+    padding: 0;
+    margin: 2px 3px;
+    border: none;
 }
 
 #workspaces button {
-    padding: 0 5px;
-    margin: 1px;
-    min-height: 0;
-    color: #666666;
-    background: transparent;
-    border: none;
-    transition: color 0.15s ease, background-color 0.15s ease;
+    padding: 5px 11px;
+    margin: 0 2px;
+    min-height: 20px;
+    min-width: 1.75em;
+    color: #a1a1aa;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
 }
 
 #workspaces button.active {
     color: #ffffff;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 0;
-}
-
-#workspaces button:hover {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 0;
+    background: rgba(255, 255, 255, 0.2);
 }

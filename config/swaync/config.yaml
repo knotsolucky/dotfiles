@@ -7,6 +7,6 @@ style:
     border: "1px solid rgba(255,255,255,0.1)"
     color: "#ffffff"
     font:
-      family: "JetBrains Mono"
+      family: "SFMono Nerd Font"
       size: 16
       weight: 500

@@ -1,0 +1,168 @@
+/* Tokens aligned with config/swaync/style.css */
+$panel-solid: rgba(15, 15, 15, 0.9);
+$card: rgba(30, 30, 30, 0.6);
+$border: rgba(255, 255, 255, 0.1);
+$text: #ffffff;
+$muted: #a1a1aa;
+$cpu: #c4b5fd;
+$mem: #fcd34d;
+
+* {
+  all: unset;
+  font-family: "Liga SFMono Nerd Font", "SFMono Nerd Font", monospace;
+}
+
+$radius-bar: 11px;
+$radius-chip: 7px;
+$sky: #7dd3fc;
+$green: #6ee7b7;
+$power: #f87171;
+
+.bar-outer {
+  background: transparent;
+}
+
+.bar-root {
+  background: $panel-solid;
+  color: $text;
+  border: 1px solid $border;
+  border-radius: $radius-bar;
+  padding: 4px 10px;
+  margin: 0 14px;
+  min-height: 38px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+.bar-section {
+  margin-right: 6px;
+}
+
+.bar-ws-row {
+  padding-right: 4px;
+}
+
+.bar-ws {
+  background: rgba(255, 255, 255, 0.08);
+  color: $muted;
+  border-radius: $radius-chip;
+  border: 1px solid $border;
+  padding: 2px 9px;
+  margin: 0 2px;
+  font-size: 11px;
+  font-weight: 600;
+  min-width: 1.5em;
+}
+
+.bar-ws:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: $text;
+}
+
+.bar-ws-active {
+  background: rgba(255, 255, 255, 0.18);
+  color: $text;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.bar-title {
+  color: $muted;
+  font-size: 12px;
+  margin: 0 10px;
+  min-width: 8em;
+}
+
+.bar-mpris-wrap {
+  padding: 0 8px;
+}
+
+.bar-mpris {
+  background: transparent;
+  color: $green;
+  font-size: 12px;
+  padding: 2px 10px;
+  border-radius: $radius-chip;
+  border: 1px solid transparent;
+}
+
+.bar-mpris:hover {
+  border-color: $border;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.bar-chip {
+  background: $card;
+  color: $text;
+  border-radius: $radius-chip;
+  border: 1px solid $border;
+  padding: 3px 11px;
+  margin: 0 3px;
+  font-size: 12px;
+}
+
+.bar-chip:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.bar-power {
+  color: $power;
+  min-width: 2em;
+}
+
+.dashboard {
+  background: $panel-solid;
+  color: $text;
+  border: 1px solid $border;
+  border-radius: 12px;
+  padding: 18px;
+  min-width: 320px;
+}
+
+.dash-title {
+  color: $muted;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+.dash-value {
+  color: $text;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.dash-subtle {
+  color: $muted;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.dash-row {
+  margin-top: 8px;
+}
+
+.dash-chip {
+  background: $card;
+  border-radius: 12px;
+  padding: 4px 10px;
+  margin-right: 6px;
+  color: $text;
+  font-size: 12px;
+  border: 1px solid $border;
+}
+
+.dash-chip.cpu {
+  color: $cpu;
+}
+
+.dash-chip.mem {
+  color: $mem;
+}
+
+.dash-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: $text;
+  font-size: 11px;
+  padding: 8px 14px;
+  margin-right: 6px;
+  border: 1px solid $border;
+}

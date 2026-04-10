@@ -1,0 +1,31 @@
+/*
+ * Tray-only Waybar: invisible shell so icons sit in the Eww bar-tray-slot
+ * without a second floating “pill” / menu-looking capsule (GTK tray is its
+ * own layer window; a filled rounded window reads as a weird extra widget).
+ */
+window#waybar {
+    background: transparent;
+    color: #ffffff;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+window#waybar .modules-right {
+    padding: 0;
+    margin: 0;
+    background: transparent;
+}
+
+#tray {
+    background: transparent;
+    padding: 2px 4px;
+}
+
+#tray > * {
+    padding: 0 2px;
+}
+
+#tray > widget > image {
+    border-radius: 6px;
+}

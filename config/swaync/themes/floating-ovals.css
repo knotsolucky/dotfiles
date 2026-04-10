@@ -2,7 +2,7 @@
 .notification {
     background-color: rgba(15, 15, 15, 0.9); /* OLED black / dark grey */
     color: #ffffff;
-    font-family: "JetBrains Mono", "JetBrainsMono NF", "JetBrainsMono Nerd Font", monospace;
+    font-family: "Liga SFMono Nerd Font", "SFMono Nerd Font", monospace;
     font-size: 16px;
     font-weight: 500;
 

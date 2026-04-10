@@ -20,10 +20,10 @@ Optional: `AUR_HELPER=paru ./install.sh` if you use paru instead of yay. The scr
 
 Arch’s **`nodejs`** (current major) **conflicts** with **`nodejs-lts-jod`**, **`nodejs-lts-krypton`**, **`nodejs-lts-iron`**, etc. The script **does not** always install `nodejs`: it only adds **`nodejs`** if no pacman-owned **`/usr/bin/node`** exists (so an existing LTS install is left alone and **`npm`** still resolves against `Provides: nodejs=…` from the LTS package). To switch families later, remove one side explicitly (e.g. `sudo pacman -R nodejs-lts-jod` then re-run the script or `sudo pacman -S nodejs npm`).
 
-After packages, **`install.sh` enables** (best-effort; missing units are skipped):
+After packages, **`install.sh` enables** (best-effort):
 
-- **User:** `pipewire`, `wireplumber`, `pipewire-pulse`, `syncthing`, `hypridle`, `plasma-polkit-agent`, `xdg-desktop-portal-hyprland`. Hyprland also runs `dbus-update-activation-environment`, **`graphical-session.target`**, **Walker**, and **Elephant** via **`exec-once`** in **`config/hypr/hyprland.conf`** (no custom unit files in this repo).
-- **System:** `NetworkManager`, `NetworkManager-dispatcher`, `NetworkManager-wait-online`, `bluetooth`, `docker`, `mariadb`
+- **User:** `pipewire`, `wireplumber`, `pipewire-pulse`, `syncthing`, `hypridle`, `plasma-polkit-agent`, `xdg-desktop-portal-hyprland`, `eww` — warns if enable fails (often no user systemd bus until a graphical login). Hyprland also runs `dbus-update-activation-environment`, **`graphical-session.target`**, **Walker**, and **Elephant** via **`exec-once`** in **`config/hypr/hyprland.conf`** (no custom unit files in this repo).
+- **System:** `NetworkManager`, `NetworkManager-dispatcher`, `NetworkManager-wait-online`, `bluetooth`, `docker`, `mariadb` — **no message** if that unit is not installed (e.g. package skipped or removed); **warn** only when the unit exists but `systemctl enable --now` fails (permissions, masked service, or MariaDB failing its first start — check `journalctl -u mariadb`).
 
 `systemctl --user` needs a normal login session (logind); if you run the script over plain SSH with no user dbus, user units may no-op until you log in graphically once and run the `systemctl --user enable --now …` lines yourself.
 
@@ -75,11 +75,13 @@ walker --gapplication-service & elephant &
 
 | Config dir in repo | Typical Arch packages |
 |--------------------|------------------------|
-| `config/hypr/` | `hyprland`, `hypridle`, `hyprlock`, `hyprshot` (screenshots; also `grim` / `slurp`) |
+| `config/hypr/` | `hyprland`, `hyprpaper`, `hypridle`, `hyprlock`, `hyprshot` (screenshots; also `grim` / `slurp`) |
+| `config/eww/` | AUR `eww` (fallback candidates in installer: `eww-wayland`, `eww-git`, `eww-wayland-git`) |
 | `config/waybar/` | `waybar` |
 | `config/swaync/` | `swaync` |
-| `config/kitty/`, `config/alacritty/`, `config/ghostty/` | matching terminal packages |
-| `config/nvim/` | `neovim`, `tree-sitter` (CLI for nvim-treesitter parsers) — [`../documentation/arch-linux-nvim.md`](../documentation/arch-linux-nvim.md) |
+| `config/kitty/`, `config/alacritty/`, `config/ghostty/` | matching terminal packages; UI monospace stack uses **SF Mono Nerd** — AUR **`nerd-fonts-sf-mono`** ([`../documentation/fonts.md`](../documentation/fonts.md)) |
+| `config/fontconfig/`, `config/rofi/` | same AUR font + `fontconfig` snippet for generic `monospace`; Rofi reads `config.rasi` |
+| `config/nvim/` | `neovim`, `tree-sitter`, **`tree-sitter-cli`** (required by nvim-treesitter to compile parsers; library-only `tree-sitter` is not enough) — [`../documentation/neovim.md`](../documentation/neovim.md) |
 | `config/yazi/` | `yazi` |
 | `config/btop/`, `config/htop/`, `config/fastfetch/` | same names |
 | `config/starship/` | `starship` (via `STARSHIP_CONFIG` in `home/.zshrc`) |

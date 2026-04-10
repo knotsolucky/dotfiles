@@ -1,56 +1,83 @@
 {
     "layer": "top",
-    "position": "bottom",
-    "margin-bottom": 10,
-    "margin-left": 10,
-    "margin-right": 10,
-    "spacing": 8,
+    "position": "top",
+    "margin-top": 8,
+    "margin-bottom": 0,
+    "margin-left": 18,
+    "margin-right": 18,
+    "spacing": 0,
 
-    "modules-left": ["hyprland/workspaces"],
-    "modules-center": ["hyprland/window"],
-    "modules-right": ["pulseaudio", "network", "cpu", "memory", "tray", "clock"],
+    "modules-left": ["hyprland/workspaces", "hyprland/window"],
+    "modules-center": ["mpris"],
+    "modules-right": [
+        "cpu",
+        "memory",
+        "pulseaudio",
+        "network",
+        "clock#date",
+        "clock#time",
+        "custom/power"
+    ],
 
     "hyprland/workspaces": {
-        "format": "{name}",
-        "on-click": "activate"
+        "format": "{name}"
     },
 
     "hyprland/window": {
         "format": "{title}",
-        "max-length": 40
+        "max-length": 42
     },
 
-    "tray": {
-        "icon-size": 18,
-        "spacing": 10
+    "mpris": {
+        "interval": 2,
+        "dynamic-len": 48,
+        "dynamic-order": ["artist", "title"],
+        "format": "<span foreground='#6ee7b7'>▶</span> <span foreground='#e5e5e5'>{dynamic}</span>",
+        "format-paused": "<span foreground='#a3a3a3'>⏸</span> <span foreground='#a3a3a3'><i>{dynamic}</i></span>",
+        "format-stopped": "<span foreground='#737373'>—</span>",
+        "tooltip-format": "{player}\n{artist} — {title}",
+        "player-icons": { "default": "▶" },
+        "status-icons": { "playing": "▶", "paused": "⏸", "stopped": "⏹" }
     },
 
     "pulseaudio": {
         "markup": true,
-        "format": "<span foreground='#7dd3fc'>󰕾</span> <span foreground='#e5e5e5'>{volume}%</span>",
-        "format-muted": "<span foreground='#f87171'>󰝟</span> <span foreground='#a3a3a3'>Muted</span>",
-        "on-click": "pavucontrol"
+        "format": "<span foreground='#ffffff'>󰕾</span> <span foreground='#7dd3fc'>{volume}%</span>",
+        "format-muted": "<span foreground='#ffffff'>󰝟</span> <span foreground='#a3a3a3'>Muted</span>"
     },
 
     "network": {
         "markup": true,
-        "format-wifi": "<span foreground='#7dd3fc'>󰤨</span> <span foreground='#e5e5e5'>{essid}</span>",
-        "format-ethernet": "<span foreground='#38bdf8'>󰈀</span> <span foreground='#e5e5e5'>{ifname}</span>",
-        "format-disconnected": "<span foreground='#f87171'>󰤭</span> <span foreground='#a3a3a3'>Offline</span>"
+        "format-wifi": "<span foreground='#ffffff'>󰤨</span> <span foreground='#7dd3fc'>{essid}</span>",
+        "format-ethernet": "<span foreground='#ffffff'>󰈀</span> <span foreground='#38bdf8'>{ifname}</span>",
+        "format-disconnected": "<span foreground='#ffffff'>󰤭</span> <span foreground='#f87171'>Offline</span>"
     },
 
     "cpu": {
         "markup": true,
-        "format": "<span foreground='#c4b5fd'>󰍛</span> <span foreground='#e5e5e5'>{usage}%</span>"
-    },
-    "memory": {
-        "markup": true,
-        "format": "<span foreground='#fcd34d'>󰘚</span> <span foreground='#e5e5e5'>{percentage}%</span>"
+        "format": "<span foreground='#ffffff'>󰍛</span> <span foreground='#c4b5fd'>{usage}%</span>"
     },
 
-    "clock": {
+    "memory": {
+        "interval": 5,
         "markup": true,
-        "format": "<span foreground='#6ee7b7'>󰥔</span> <span foreground='#e5e5e5'>{:%I:%M %p}</span>",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+        "format": "<span foreground='#ffffff'>󰘚</span> <span foreground='#fcd34d'>{used:.1f}Gi</span>"
+    },
+
+    "clock#date": {
+        "markup": true,
+        "format": "<span foreground='#ffffff'>󰃭</span> <span foreground='#7dd3fc'>{0:%a %d %b}</span>",
+        "tooltip-format": "<big>{0:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+
+    "clock#time": {
+        "markup": true,
+        "format": "<span foreground='#ffffff'>󰥔</span> <span foreground='#38bdf8'>{0:%R}</span>",
+        "tooltip-format": "<big>{0:%A %d %B %Y}</big>\n<tt>{0:%T}</tt>"
+    },
+
+    "custom/power": {
+        "format": "<span foreground='#ffffff'>󰐥</span> <span foreground='#f87171'>power</span>",
+        "tooltip-format": "Power (display only)"
     }
 }

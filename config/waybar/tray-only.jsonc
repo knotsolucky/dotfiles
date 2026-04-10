@@ -1,0 +1,13 @@
+{
+    "layer": "top",
+    "position": "top",
+    "width": 280,
+    "margin-top": 8,
+    "margin-right": 18,
+    "spacing": 0,
+    "modules-right": ["tray"],
+    "tray": {
+        "icon-size": 18,
+        "spacing": 8
+    }
+}
