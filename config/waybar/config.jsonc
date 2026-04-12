@@ -16,6 +16,7 @@
         "network",
         "clock#date",
         "clock#time",
+        "tray",
         "custom/power"
     ],
 
@@ -74,6 +75,11 @@
         "markup": true,
         "format": "<span foreground='#ffffff'>󰥔</span> <span foreground='#38bdf8'>{0:%R}</span>",
         "tooltip-format": "<big>{0:%A %d %B %Y}</big>\n<tt>{0:%T}</tt>"
+    },
+
+    "tray": {
+        "icon-size": 18,
+        "spacing": 8
     },
 
     "custom/power": {

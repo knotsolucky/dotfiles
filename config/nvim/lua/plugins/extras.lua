@@ -1,6 +1,8 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
+    -- master requires nvim 0.11+; v0.1.9 supports 0.9.x (Ubuntu stock) through 0.10
+    tag = "v0.1.9",
     dependencies = { "nvim-lua/plenary.nvim" },
     event = "UIEnter",
     keys = {

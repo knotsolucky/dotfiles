@@ -4,7 +4,7 @@
 # top-level files under config/ are copied as ~/.config/<filename>).
 # Optional: DOTFILES_SYNC_EXCLUDE — space-separated basenames to skip (dirs and top-level files).
 # On Darwin, if DOTFILES_SYNC_EXCLUDE is unset, defaults skip Hyprland / Wayland bar stack (see below).
-# Called by arch-linux/install.sh, ubuntu/install.sh, macos/install.sh (after packages/brew), and scripts/restow-config.sh.
+# Called by arch-linux/install.sh, macos/install.sh (after packages/brew), and scripts/restow-config.sh.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

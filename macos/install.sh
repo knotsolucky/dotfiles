@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# macOS: Homebrew bundle + full repo config/ → ~/.config (no Linux desktop stack or systemd).
+# Homebrew bundle (macOS or Linuxbrew) + config sync. Casks run only on macOS.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-BREWFILE="$ROOT/macos/Brewfile"
+BREWFILE="${DOTFILES_BREWFILE:-$ROOT/macos/Brewfile}"
 
 if ! command -v brew >/dev/null 2>&1; then
   printf '%s\n' "Homebrew not found. Install from https://brew.sh then re-run:" >&2
@@ -11,10 +11,24 @@ if ! command -v brew >/dev/null 2>&1; then
   exit 1
 fi
 
-echo "brew bundle --file=$BREWFILE"
-brew bundle install --file="$BREWFILE"
+os="$(uname -s)"
+bundle_file="$BREWFILE"
+tmp_brewfile=""
+if [[ "$os" != "Darwin" ]]; then
+  tmp_brewfile="$(mktemp "${TMPDIR:-/tmp}/dotfiles-brewfile.XXXXXX")"
+  grep -Ev '^[[:space:]]*cask([[:space:]]|\()' "$BREWFILE" >"$tmp_brewfile"
+  bundle_file="$tmp_brewfile"
+fi
 
-echo "Syncing ${ROOT}/config/ -> ${XDG_CONFIG_HOME:-$HOME/.config} (Hyprland / Wayland stack dirs skipped on macOS; set DOTFILES_SYNC_EXCLUDE='' to sync everything) ..."
+echo "brew bundle install --file=$bundle_file"
+brew bundle install --file="$bundle_file"
+[[ -n "$tmp_brewfile" ]] && rm -f "$tmp_brewfile"
+
+sync_note="full config/"
+if [[ "$os" == "Darwin" ]]; then
+  sync_note="Hyprland / Wayland stack dirs skipped on macOS by default; set DOTFILES_SYNC_EXCLUDE='' for full config/"
+fi
+echo "Syncing ${ROOT}/config/ -> ${XDG_CONFIG_HOME:-$HOME/.config} ($sync_note) ..."
 bash "$ROOT/scripts/sync-all-config.sh"
 
 if [[ -d "$ROOT/home" ]]; then
@@ -26,7 +40,7 @@ if [[ -d "$ROOT/home" ]]; then
 fi
 
 if [[ -f "$ROOT/macos/.zshrc" ]]; then
-  echo "Applying macOS zsh override (${ROOT}/macos/.zshrc -> $HOME/.zshrc) ..."
+  echo "Applying Homebrew-oriented zsh (${ROOT}/macos/.zshrc -> $HOME/.zshrc) ..."
   cp -a "$ROOT/macos/.zshrc" "$HOME/.zshrc"
   chmod 600 "$HOME/.zshrc"
 fi
