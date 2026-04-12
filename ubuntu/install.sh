@@ -30,7 +30,6 @@ APT_PKGS=(
   network-manager network-manager-openvpn openvpn
   wireguard-tools
   zsh zsh-autosuggestions zsh-syntax-highlighting
-  docker.io docker-compose-v2
   golang-go default-jdk-headless maven rustc cargo llvm clang make
   lua5.4 python3 python3-pip python3-venv
   gcc g++ ffmpeg
@@ -50,6 +49,15 @@ append_if_pkg fastfetch
 append_if_pkg ninja-build meson
 append_if_pkg dotnet-sdk-8.0 dotnet-runtime-8.0
 append_if_pkg putty
+
+# Docker stack:
+# - Prefer Docker CE packages when Docker upstream repo is configured.
+# - Fall back to Ubuntu docker.io packages otherwise.
+if apt-cache show docker-ce &>/dev/null && apt-cache show containerd.io &>/dev/null; then
+  append_if_pkg docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+else
+  append_if_pkg docker.io docker-compose-v2 docker-compose-plugin docker-compose
+fi
 
 if ! command -v node >/dev/null 2>&1; then
   append_if_pkg nodejs npm
