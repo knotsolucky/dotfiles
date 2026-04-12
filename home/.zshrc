@@ -26,9 +26,12 @@ fi
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
-# 7. Starship (STARSHIP_CONFIG must exist before `starship init`)
-export STARSHIP_CONFIG="${STARSHIP_CONFIG:-${XDG_CONFIG_HOME:-$HOME/.config}/starship.toml}"
+# 7. Visual Plugins (ORDER MATTERS HERE)
+# Prompt first
 eval "$(starship init zsh)"
 
+# Autosuggestions second
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Syntax Highlighting ALWAYS LAST
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
