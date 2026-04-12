@@ -26,7 +26,7 @@ append_if_pkg() {
 APT_PKGS=(
   git stow build-essential pkg-config cmake
   neovim fd-find ripgrep syncthing fzf zoxide tmux unzip zip wget
-  bat eza htop btop fastfetch
+  bat eza htop btop
   network-manager network-manager-openvpn openvpn
   wireguard-tools
   zsh zsh-autosuggestions zsh-syntax-highlighting
@@ -46,6 +46,7 @@ fi
 append_if_pkg lazygit
 append_if_pkg yazi
 append_if_pkg starship
+append_if_pkg fastfetch
 append_if_pkg ninja-build meson
 append_if_pkg dotnet-sdk-8.0 dotnet-runtime-8.0
 append_if_pkg putty
