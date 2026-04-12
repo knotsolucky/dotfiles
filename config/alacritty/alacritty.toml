@@ -1,9 +1,6 @@
 [font]
 size = 18
-normal.family = "SFMono Nerd Font"
-bold.family = "SFMono Nerd Font"
-italic.family = "SFMono Nerd Font"
-bold_italic.family = "SFMono Nerd Font"
+normal.family = "IosvekaTerm Nerd Font"
 
 [window]
 startup_mode = "Maximized"

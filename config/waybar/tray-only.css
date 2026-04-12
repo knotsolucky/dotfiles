@@ -4,6 +4,7 @@
  * own layer window; a filled rounded window reads as a weird extra widget).
  */
 window#waybar {
+    font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
     background: transparent;
     color: #ffffff;
     border: none;

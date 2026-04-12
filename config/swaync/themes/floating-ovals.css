@@ -1,61 +1,54 @@
-/* General notification container */
+/* Legacy file kept for manual import; now aligned to boxed OLED style. */
 .notification {
-    background-color: rgba(15, 15, 15, 0.9); /* OLED black / dark grey */
+    background-color: #0c0c0c;
     color: #ffffff;
-    font-family: "Liga SFMono Nerd Font", "SFMono Nerd Font", monospace;
-    font-size: 16px;
+    font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+    font-size: 15px;
     font-weight: 500;
-
-    padding: 6px 18px;       /* Oval shape */
-    margin: 8px 4px;         /* Floating effect */
-    border-radius: 50px;     /* Pill / oval */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* optional floating shadow */
+    padding: 8px 12px;
+    margin: 8px 4px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
-/* Notification types / modules */
 .notification[data-type="cpu"],
 .notification[data-type="memory"],
 .notification[data-type="network"],
 .notification[data-type="system"] {
-    background-color: rgba(15, 15, 15, 0.9);
-    border-radius: 50px;
+    background-color: #0c0c0c;
+    border-radius: 8px;
 }
 
-/* Hover effect */
 .notification:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #121212;
     color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.14);
 }
 
-/* Urgent notifications */
 .notification[data-urgency="critical"] {
-    background-color: rgba(255, 0, 0, 0.9);
-    color: #ffffff;
+    border-color: rgba(248, 113, 113, 0.55);
 }
 
-/* Tray or small icons (if used) */
 .notification .icon {
-    padding: 0 15px;
+    padding: 0 10px;
 }
 
-/* Workspaces / actions buttons */
 .notification .button {
-    padding: 0 10px;
-    color: #666666;
-    background: transparent;
-    border: none;
-    border-radius: 50px;
-    transition: all 0.3s ease;
+    padding: 2px 8px;
+    color: #cfcfcf;
+    background: #121212;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    transition: all 0.2s ease;
 }
 
 .notification .button.active {
     color: #ffffff;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.14);
 }
 
 .notification .button:hover {
     color: #ffffff;
-    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.16);
 }

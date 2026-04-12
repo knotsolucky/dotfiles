@@ -1,23 +1,23 @@
-/* Floating pill bar — SwayNC-adjacent tokens (config/swaync/style.css) */
+/* OLED boxed theme tokens (documentation/theme-oled-boxed.md) */
 window#waybar {
-    background: rgba(15, 15, 15, 0.92);
+    background: #000000;
     color: #ffffff;
-    font-family: "Liga SFMono Nerd Font", "SFMono Nerd Font", monospace;
+    font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
     font-size: 14px;
     font-weight: 500;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
-    cursor: default;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
 }
 
 .modules-left,
 .modules-center,
 .modules-right {
-    padding: 5px 12px 6px;
+    padding: 6px 12px;
 }
 
-/* Module chips ~ SwayNC notification bubbles */
 #clock,
 #clock\.date,
 #clock\.time,
@@ -29,11 +29,11 @@ window#waybar {
 #mpris,
 #tray,
 #custom-power {
-    background: rgba(30, 30, 30, 0.55);
-    padding: 5px 14px;
-    margin: 2px 3px;
+    background: #121212;
+    padding: 6px 12px;
+    margin: 2px 4px;
     min-height: 20px;
-    border-radius: 999px;
+    border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -44,7 +44,10 @@ window#waybar {
 #clock,
 #clock\.date,
 #clock\.time,
-#mpris {
+#mpris,
+#window,
+#custom-power,
+#tray {
     color: #ffffff;
 }
 
@@ -55,38 +58,42 @@ window#waybar {
 #clock label,
 #clock\.date label,
 #clock\.time label,
-#mpris label {
+#mpris label,
+#window label,
+#custom-power label {
     color: inherit;
 }
 
 #tray {
-    padding: 4px 10px;
-    color: #ffffff;
-}
-
-#custom-power {
-    padding: 5px 12px;
+    padding: 5px 10px;
 }
 
 #workspaces {
-    background: transparent;
-    padding: 0;
-    margin: 2px 3px;
-    border: none;
+    background: #0c0c0c;
+    padding: 3px;
+    margin: 2px 4px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
 }
 
 #workspaces button {
-    padding: 5px 11px;
+    padding: 5px 10px;
     margin: 0 2px;
     min-height: 20px;
     min-width: 1.75em;
     color: #a1a1aa;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 999px;
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+}
+
+#workspaces button:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.14);
 }
 
 #workspaces button.active {
     color: #ffffff;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
 }

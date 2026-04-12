@@ -1,11 +1,31 @@
 #!/usr/bin/env bash
-# Sync everything under repo config/ into $XDG_CONFIG_HOME (~/.config by default).
-# Each immediate child of config/ becomes ~/.config/<name>/ (directories merged; files copied as-is).
+# Sync every entry under repo config/ into $XDG_CONFIG_HOME (~/.config by default).
+# No app whitelist: each immediate child of config/ is mirrored (directories merged via cp -a;
+# top-level files under config/ are copied as ~/.config/<filename>).
+# Optional: DOTFILES_SYNC_EXCLUDE — space-separated basenames to skip (dirs and top-level files).
+# On Darwin, if DOTFILES_SYNC_EXCLUDE is unset, defaults skip Hyprland / Wayland bar stack (see below).
+# Called by arch-linux/install.sh, ubuntu/install.sh, macos/install.sh (after packages/brew), and scripts/restow-config.sh.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC="$ROOT/config"
 DEST="${XDG_CONFIG_HOME:-$HOME/.config}"
+
+# macOS: avoid copying Linux compositor / session configs (still sync nvim, kitty, etc.).
+DEFAULT_MACOS_EXCLUDES="hypr HyprPaper waybar swaync wlogout eww pipewire"
+
+if [[ "$(uname -s)" == "Darwin" ]] && ! [ -n "${DOTFILES_SYNC_EXCLUDE+x}" ]; then
+  DOTFILES_SYNC_EXCLUDE="$DEFAULT_MACOS_EXCLUDES"
+fi
+
+should_skip() {
+  local base="$1" x
+  [[ -z "${DOTFILES_SYNC_EXCLUDE:-}" ]] && return 1
+  for x in $DOTFILES_SYNC_EXCLUDE; do
+    [[ "$base" == "$x" ]] && return 0
+  done
+  return 1
+}
 
 if [[ ! -d "$SRC" ]]; then
   printf '%s\n' "sync-all-config: missing directory: $SRC" >&2
@@ -20,6 +40,15 @@ shopt -s nullglob
 for item in "$SRC"/*; do
   [[ -e "$item" ]] || continue
   base=$(basename "$item")
+
+  if should_skip "$base"; then
+    if [[ "${DRY_RUN:-0}" == "1" ]]; then
+      printf '  %s (skip)\n' "$base"
+    else
+      printf '[sync-all-config] skip %s (DOTFILES_SYNC_EXCLUDE)\n' "$base"
+    fi
+    continue
+  fi
 
   if [[ "${DRY_RUN:-0}" == "1" ]]; then
     printf '  %s\n' "$base"

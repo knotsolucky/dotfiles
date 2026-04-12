@@ -3,9 +3,9 @@
   "positionX": "right",
   "positionY": "top",
   "layer": "overlay",
-  "control-center-width": 500,
-  "control-center-height": 600,
-  "notification-window-width": 500,
+  "control-center-width": 460,
+  "control-center-height": 560,
+  "notification-window-width": 440,
   "transition-time": 200,
   "hide-on-clear": false,
   "pause-level": "same as cpu",
@@ -30,7 +30,7 @@
     },
     "mpris": {
       "image-size": 96,
-      "image-radius": 12
+      "image-radius": 8
     }
   }
 }

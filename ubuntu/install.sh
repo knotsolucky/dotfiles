@@ -68,15 +68,8 @@ if getent group docker >/dev/null 2>&1 && ! id -nG "$USER" | grep -qw docker; th
   echo "Added $USER to group docker (log out and back in for it to apply)."
 fi
 
-mkdir -p "$CFG"
-shopt -s nullglob
-for dir in "$ROOT/config"/*; do
-  [[ -d "$dir" ]] || continue
-  name=$(basename "$dir")
-  mkdir -p "$CFG/$name"
-  cp -a "$dir"/. "$CFG/$name/"
-done
-shopt -u nullglob
+echo "Syncing all of $ROOT/config/ -> $CFG ..."
+bash "$ROOT/scripts/sync-all-config.sh"
 
 if [[ -d "$ROOT/home" ]]; then
   cp -a "$ROOT/home"/. "$HOME"/

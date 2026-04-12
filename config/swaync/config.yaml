@@ -1,12 +1,12 @@
 style:
   default:
-    background: "rgba(15,15,15,0.9)"  # Dark grey with some transparency
-    border-radius: 50px               # Makes notifications oval/pill-shaped
-    padding: 10px 20px                # Similar padding as your Waybar ovals
-    margin: 10px                      # Space between notifications
+    background: "#0c0c0c"
+    border-radius: 8px
+    padding: 8px 12px
+    margin: 8px
     border: "1px solid rgba(255,255,255,0.1)"
     color: "#ffffff"
     font:
-      family: "SFMono Nerd Font"
+      family: "JetBrainsMono Nerd Font"
       size: 16
       weight: 500

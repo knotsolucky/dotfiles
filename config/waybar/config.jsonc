@@ -1,11 +1,11 @@
 {
     "layer": "top",
     "position": "top",
-    "margin-top": 8,
+    "margin-top": 0,
     "margin-bottom": 0,
-    "margin-left": 18,
-    "margin-right": 18,
-    "spacing": 0,
+    "margin-left": 0,
+    "margin-right": 0,
+    "spacing": 2,
 
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["mpris"],
@@ -25,7 +25,7 @@
 
     "hyprland/window": {
         "format": "{title}",
-        "max-length": 42
+        "max-length": 38
     },
 
     "mpris": {
@@ -78,6 +78,7 @@
 
     "custom/power": {
         "format": "<span foreground='#ffffff'>󰐥</span> <span foreground='#f87171'>power</span>",
-        "tooltip-format": "Power (display only)"
+        "tooltip-format": "Power menu (wlogout)",
+        "on-click": "wlogout -b 3 -c 14 -r 14 -m 16"
     }
 }

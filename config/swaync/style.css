@@ -1,83 +1,108 @@
-/* Base Font and Global Styles */
+/* OLED boxed theme tokens (documentation/theme-oled-boxed.md) */
 * {
-    font-family: "Liga SFMono Nerd Font", "SFMono Nerd Font", monospace;
-    font-size: 16px;
+    font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+    font-size: 15px;
     font-weight: 500;
 }
 
-/* The Main Notification Center Window */
 .control-center {
-    background: rgba(15, 15, 15, 0.9);
+    background: #050505;
     color: #ffffff;
-    border-radius: 12px;
+    border-radius: 8px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     margin: 12px;
-    padding: 18px;
+    padding: 12px;
 }
 
-/* Individual Notification Bubbles (The "Floating" look) */
-.notification {
-    background: rgba(30, 30, 30, 0.6);
-    border-radius: 12px;
-    margin: 10px;
-    padding: 4px 0;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
-}
-
-.notification:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-/* The Title Bar & Buttons (Matching your #workspaces button style) */
-.widget-title {
-    padding: 14px 12px;
-    margin: 8px 4px;
-}
-
-.widget-title > button {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    border-radius: 10px;
-    padding: 8px 18px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-}
-
-.widget-title > button:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* Do Not Disturb Toggle (Matching your pill modules) */
-.widget-dnd {
-    background: rgba(15, 15, 15, 0.9);
-    padding: 10px 20px;
-    margin: 10px 6px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.widget-dnd > switch {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.widget-dnd > switch:checked {
-    background: #ffffff; /* Active state */
-}
-
-.widget-dnd > switch slider {
-    background: #666666;
-    border-radius: 12px;
-}
-
-/* Control Center Buttons (Like "Clear All") */
+.control-center .notification-row,
 .control-center-list {
     background: transparent;
 }
 
-/* Critical Notifications */
+.notification {
+    background: #0c0c0c;
+    color: #ffffff;
+    border-radius: 8px;
+    margin: 8px 4px;
+    padding: 8px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.2s ease;
+}
+
+.notification:hover {
+    background: #121212;
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+.widget-title {
+    background: #0c0c0c;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin: 6px 4px;
+}
+
+.widget-title > label {
+    color: #ffffff;
+}
+
+.widget-title > button {
+    background: #121212;
+    color: #ffffff;
+    border-radius: 6px;
+    padding: 6px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.2s ease;
+}
+
+.widget-title > button:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.widget-dnd {
+    background: #0c0c0c;
+    padding: 10px 12px;
+    margin: 8px 4px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.widget-dnd > label {
+    color: #ffffff;
+}
+
+.widget-dnd > switch {
+    background: #121212;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.widget-dnd > switch:checked {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.widget-dnd > switch slider {
+    background: #ffffff;
+    border-radius: 5px;
+}
+
+.widget-mpris {
+    background: #0c0c0c;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin: 8px 4px;
+    padding: 10px;
+}
+
+.widget-mpris-player {
+    border-radius: 8px;
+}
+
+.widget-buttons-grid {
+    background: transparent;
+}
+
 .notification-critical {
-    border: 1px solid rgba(255, 0, 0, 0.5);
+    border: 1px solid rgba(248, 113, 113, 0.55);
 }
