@@ -13,7 +13,8 @@ vim.g.maplocalleader = " "
 require("config.options")
 
 local lazypath = data .. "/lazy/lazy.nvim"
-if not vim.uv.fs_stat(lazypath) then
+local uv = vim.uv or vim.loop
+if not uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",

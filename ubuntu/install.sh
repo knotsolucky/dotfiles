@@ -3,6 +3,8 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CFG="${XDG_CONFIG_HOME:-$HOME/.config}"
 export DEBIAN_FRONTEND=noninteractive
+# Avoid needrestart blocking unattended installs on servers (apt hook).
+export NEEDRESTART_MODE=a
 
 if ! command -v apt-get >/dev/null 2>&1; then
   echo "This script expects apt (Debian/Ubuntu)." >&2
@@ -26,22 +28,30 @@ append_if_pkg() {
 APT_PKGS=(
   git stow build-essential pkg-config cmake
   neovim fd-find ripgrep syncthing fzf zoxide tmux unzip zip wget
-  bat eza htop btop
-  network-manager network-manager-openvpn openvpn
+  htop
+  openvpn
   wireguard-tools
-  zsh zsh-autosuggestions zsh-syntax-highlighting
+  zsh
   golang-go default-jdk-headless maven rustc cargo llvm clang make
   lua5.4 python3 python3-pip python3-venv
   gcc g++ ffmpeg
-  mariadb-server mariadb-client
-  gh
 )
+
+# Ubuntu Server often uses netplan + systemd-networkd; NM is optional.
+if [[ "${DOTFILES_UBUNTU_SKIP_NETWORKMANAGER:-0}" != "1" ]]; then
+  APT_PKGS+=(network-manager network-manager-openvpn)
+else
+  echo "Skipping NetworkManager (DOTFILES_UBUNTU_SKIP_NETWORKMANAGER=1)."
+fi
 
 if apt-cache show tree-sitter-cli &>/dev/null; then
   APT_PKGS+=(tree-sitter-cli)
 elif apt-cache show tree-sitter &>/dev/null; then
   APT_PKGS+=(tree-sitter)
 fi
+append_if_pkg bat eza btop
+append_if_pkg zsh-autosuggestions zsh-syntax-highlighting
+append_if_pkg gh
 append_if_pkg lazygit
 append_if_pkg yazi
 append_if_pkg starship
@@ -49,6 +59,11 @@ append_if_pkg fastfetch
 append_if_pkg ninja-build meson
 append_if_pkg dotnet-sdk-8.0 dotnet-runtime-8.0
 append_if_pkg putty
+if [[ "${DOTFILES_UBUNTU_SKIP_MARIADB:-0}" != "1" ]]; then
+  append_if_pkg mariadb-server mariadb-client
+else
+  echo "Skipping MariaDB (DOTFILES_UBUNTU_SKIP_MARIADB=1)."
+fi
 
 # Docker stack:
 # - Prefer Docker CE packages when Docker upstream repo is configured.
@@ -63,7 +78,13 @@ if ! command -v node >/dev/null 2>&1; then
   append_if_pkg nodejs npm
 fi
 
-sudo apt-get install -y "${APT_PKGS[@]}"
+APT_EXTRA_OPTS=()
+if [[ "${DOTFILES_UBUNTU_APT_MINIMAL:-0}" == "1" ]]; then
+  APT_EXTRA_OPTS+=(--no-install-recommends)
+  echo "Using apt --no-install-recommends (DOTFILES_UBUNTU_APT_MINIMAL=1)."
+fi
+
+sudo apt-get install -y "${APT_EXTRA_OPTS[@]}" "${APT_PKGS[@]}"
 
 if command -v fdfind >/dev/null 2>&1 && ! command -v fd >/dev/null 2>&1; then
   sudo update-alternatives --install /usr/local/bin/fd fd "$(command -v fdfind)" 30 2>/dev/null || true
@@ -97,7 +118,18 @@ if [[ -x "$tpm/bin/install_plugins" ]]; then
   "$tpm/bin/install_plugins" || true
 fi
 
-systemctl --user enable --now syncthing.service 2>/dev/null || true
+if [[ "${DOTFILES_UBUNTU_SYNCTHING_SYSTEM:-0}" == "1" ]]; then
+  sudo systemctl enable --now "syncthing@${USER}.service" 2>/dev/null || true
+else
+  systemctl --user enable --now syncthing.service 2>/dev/null || true
+fi
+
 for s in NetworkManager NetworkManager-dispatcher NetworkManager-wait-online docker mariadb; do
+  if [[ "${DOTFILES_UBUNTU_SKIP_NETWORKMANAGER:-0}" == "1" ]] && [[ "$s" == NetworkManager* ]]; then
+    continue
+  fi
+  if [[ "${DOTFILES_UBUNTU_SKIP_MARIADB:-0}" == "1" ]] && [[ "$s" == mariadb ]]; then
+    continue
+  fi
   sudo systemctl enable --now "${s}.service" 2>/dev/null || true
 done
