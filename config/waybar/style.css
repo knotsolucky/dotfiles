@@ -3,7 +3,7 @@ window#waybar {
     background: #000000;
     color: #ffffff;
     font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     border-radius: 0;
     border-style: solid;
@@ -32,7 +32,7 @@ window#waybar {
     background: #121212;
     padding: 6px 12px;
     margin: 2px 4px;
-    min-height: 20px;
+    min-height: 22px;
     border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -64,6 +64,17 @@ window#waybar {
     color: inherit;
 }
 
+/* Clock: time a bit larger than bar default; date a bit larger than time (no icons in JSON). */
+#clock\.time,
+#clock\.time label {
+    font-size: 16px;
+}
+
+#clock\.date,
+#clock\.date label {
+    font-size: 17px;
+}
+
 #tray {
     padding: 5px 10px;
 }
@@ -91,8 +102,9 @@ window#waybar.empty #window {
 #workspaces button {
     padding: 5px 10px;
     margin: 0 2px;
-    min-height: 20px;
+    min-height: 22px;
     min-width: 1.75em;
+    font-size: 15px;
     color: #a1a1aa;
     background: #141414;
     border: 1px solid rgba(255, 255, 255, 0.08);

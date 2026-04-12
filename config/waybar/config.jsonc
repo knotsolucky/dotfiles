@@ -10,13 +10,13 @@
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["mpris"],
     "modules-right": [
-        "tray",
         "cpu",
         "memory",
         "pulseaudio",
         "network",
         "clock#date",
         "clock#time",
+        "tray",
         "custom/power"
     ],
 
@@ -75,13 +75,13 @@
 
     "clock#date": {
         "markup": true,
-        "format": "<span foreground='#ffffff'>󰃭</span> <span foreground='#7dd3fc'>{0:%a %d %b}</span>",
+        "format": "<span foreground='#7dd3fc'>{0:%a %d %b}</span>",
         "tooltip-format": "<big>{0:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
 
     "clock#time": {
         "markup": true,
-        "format": "<span foreground='#ffffff'>󰥔</span> <span foreground='#38bdf8'>{0:%R}</span>",
+        "format": "<span foreground='#38bdf8'>{0:%R}</span>",
         "tooltip-format": "<big>{0:%A %d %B %Y}</big>\n<tt>{0:%T}</tt>"
     },
 
