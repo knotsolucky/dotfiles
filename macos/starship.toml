@@ -1,0 +1,49 @@
+add_newline = true
+
+format = """$os$hostname$username$directory$fill$time$cmd_duration
+$character"""
+
+[os]
+disabled = false
+style = "bg:#1e293b fg:#f8fafc" # Dark Slate Blue
+format = "[ $symbol ]($style)"
+
+[os.symbols]
+Ubuntu = "󰕈"
+Arch = "󰣇"
+Macos = ""
+
+[hostname]
+ssh_only = false
+style = "bg:#334155 fg:#f1f5f9" # Medium Slate
+format = "[$hostname ]($style)"
+
+[username]
+show_always = true
+style_user = "bg:#1d4ed8 fg:#eff6ff bold" # Royal Blue
+style_root = "bg:#b91c1c fg:#fef2f2 bold" # Kept Red for Root (Standard Safety)
+format = "[  $user ]($style)"
+
+[directory]
+style = "bg:#2563eb fg:#ffffff bold" # Bright Blue
+format = "[  $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[fill]
+symbol = " "
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:#1e40af fg:#dbeafe" # Deep Blue
+format = "[  $time ]($style)"
+
+[cmd_duration]
+min_time = 0
+style = "bg:#60a5fa fg:#1e3a8a bold" # Sky Blue
+format = "[ 󱎫 $duration ]($style)"
+
+[character]
+success_symbol = "[❯](bold #60a5fa) "
+error_symbol = "[❯](bold #f87171) "
