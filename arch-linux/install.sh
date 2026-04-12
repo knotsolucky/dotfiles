@@ -40,6 +40,9 @@ fi
 echo "Syncing all of ${ROOT}/config/ -> ${XDG_CONFIG_HOME:-$HOME/.config} ..."
 bash "$ROOT/scripts/sync-all-config.sh"
 
+echo "Linking ${ROOT}/home/ -> $HOME (stow) ..."
+bash "$ROOT/scripts/sync-home.sh"
+
 # --- HARDWARE & SYSTEM ---
 echo "Enabling NetworkManager, Bluetooth, and Docker..."
 sudo systemctl enable --now NetworkManager bluetooth docker.service

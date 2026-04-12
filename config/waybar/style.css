@@ -1,7 +1,7 @@
 /* OLED boxed theme tokens (documentation/theme-oled-boxed.md) */
 window#waybar {
     background: #000000;
-    color: #ffffff;
+    color: #d8b4fe;
     font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
     font-size: 15px;
     font-weight: 500;
@@ -48,7 +48,7 @@ window#waybar {
 #window,
 #custom-power,
 #tray {
-    color: #ffffff;
+    color: #d8b4fe;
 }
 
 #pulseaudio label,
@@ -91,33 +91,42 @@ window#waybar.empty #window {
     font-size: 0;
 }
 
+/* Workspaces: flat strip — no outer “second bar” box; active = small purple tile only */
 #workspaces {
-    background: #0c0c0c;
-    padding: 3px;
-    margin: 2px 4px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 6px;
+    background: transparent;
+    padding: 0;
+    margin: 0 2px 0 8px;
+    border: 0;
+    border-radius: 0;
 }
 
 #workspaces button {
-    padding: 5px 10px;
-    margin: 0 2px;
-    min-height: 22px;
-    min-width: 1.75em;
-    font-size: 15px;
-    color: #a1a1aa;
-    background: #141414;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 6px;
+    padding: 2px 0;
+    margin: 0 3px;
+    min-height: 0;
+    min-width: 1.35em;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(200, 181, 254, 0.55);
+    background: transparent;
+    border: 0;
+    border-radius: 2px;
 }
 
 #workspaces button:hover {
-    color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.14);
+    color: #e9d5ff;
+    background: transparent;
 }
 
 #workspaces button.active {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.2);
+    color: #faf5ff;
+    background: #6d28d9;
+    padding: 2px 6px;
+    margin: 0 2px;
+    border-radius: 2px;
+}
+
+#custom-power,
+#custom-power label {
+    color: #ef4444;
 }

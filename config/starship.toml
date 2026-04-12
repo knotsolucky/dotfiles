@@ -5,7 +5,7 @@ $character"""
 
 [os]
 disabled = false
-style = "bg:235 fg:white"
+style = "bg:#3f3f46 fg:#e4e4e7"
 format = "[ $symbol ]($style)"
 
 [os.symbols]
@@ -15,16 +15,18 @@ Macos = ""
 
 [hostname]
 ssh_only = false
-style = "bg:235 fg:245 bold"
+style = "bg:#52525b fg:#f4f4f5"
 format = "[$hostname ]($style)"
 
 [username]
 show_always = true
-style_user = "bg:blue fg:white bold"
+style_user = "bg:#5b21b6 fg:#faf5ff bold"
+# Root must set fg explicitly too — default root styling uses different colours so the  icon and name looked mismatched.
+style_root = "bg:#86198f fg:#faf5ff bold"
 format = "[  $user ]($style)"
 
 [directory]
-style = "bg:cyan fg:black bold"
+style = "bg:#7c3aed fg:#fefce8 bold"
 format = "[  $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
@@ -35,14 +37,14 @@ symbol = " "
 [time]
 disabled = false
 time_format = "%R"
-style = "bg:235 fg:white"
+style = "bg:#4c1d95 fg:#ede9fe"
 format = "[  $time ]($style)"
 
 [cmd_duration]
 min_time = 0
-style = "bg:blue fg:white bold"
+style = "bg:#a78bfa fg:#1e1b4b bold"
 format = "[ 󱎫 $duration ]($style)"
 
 [character]
-success_symbol = "[❯](bold green) "
-error_symbol = "[❯](bold red) "
+success_symbol = "[❯](bold #c4b5fd) "
+error_symbol = "[❯](bold #f87171) "

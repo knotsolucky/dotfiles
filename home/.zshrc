@@ -10,12 +10,14 @@ setopt HIST_IGNORE_DUPS SHARE_HISTORY
 
 # 3. External Tool Initializations
 command -v brew >/dev/null && eval "$(brew shellenv)"
-eval "$(zoxide init zsh)"
+if (( $+commands[zoxide] )); then
+  eval "$(zoxide init zsh --cmd cd)"
+fi
 
 # 4. Completions (Must be initialized before plugins)
 autoload -Uz compinit && compinit
 
-# 5. Aliases (eza)
+# 5. Aliases (eza) — default eza colours (no EZA_COLORS / LS_COLORS overrides)
 if (( $+commands[eza] )); then
   alias ls='eza --icons --group-directories-first'
   alias ll='eza -lbhHigUmuSa --time-style=long-iso --icons --color-scale'
@@ -35,3 +37,8 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Syntax Highlighting ALWAYS LAST
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# 8. Startup Banner (interactive shells only)
+if [[ -o interactive ]] && (( $+commands[fastfetch] )); then
+  fastfetch
+fi
