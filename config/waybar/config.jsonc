@@ -10,13 +10,13 @@
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["mpris"],
     "modules-right": [
+        "tray",
         "cpu",
         "memory",
         "pulseaudio",
         "network",
         "clock#date",
         "clock#time",
-        "tray",
         "custom/power"
     ],
 
@@ -79,7 +79,8 @@
 
     "tray": {
         "icon-size": 18,
-        "spacing": 8
+        "spacing": 8,
+        "show-passive-items": true
     },
 
     "custom/power": {

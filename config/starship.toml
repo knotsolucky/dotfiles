@@ -1,38 +1,125 @@
 add_newline = true
 
-# The structure: Touching modules create the "joined block" look
-format = """
-$os\
-$hostname\
-$username\
-$directory\
-$fill\
-$time\
-$cmd_duration
+format = """$os$hostname$username$directory$fill$time$cmd_duration
 $character"""
 
 [os]
 disabled = false
 style = "bg:235 fg:white"
-format = "[ $symbol ]($style)" # Added space after symbol
+format = "[ $symbol ]($style)"
 
 [os.symbols]
 Ubuntu = "󰕈"
 Arch = "󰣇"
+Macos = ""
 
 [hostname]
 ssh_only = false
 style = "bg:235 fg:245 bold"
-format = "[$hostname ]($style)" # Space after name to bridge to next block
+format = "[$hostname ]($style)"
 
 [username]
 show_always = true
 style_user = "bg:blue fg:white bold"
-format = "[  $user ]($style)" # Space on both sides of user content
+format = "[  $user ]($style)"
 
 [directory]
 style = "bg:cyan fg:black bold"
-format = "[  $path ]($style)" # Space on both sides of path content
+format = "[  $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[fill]
+symbol = " "
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:235 fg:white"
+format = "[  $time ]($style)"
+
+[cmd_duration]
+min_time = 0
+style = "bg:blue fg:white bold"
+format = "[ 󱎫 $duration ]($style)"
+
+[character]
+success_symbol = "[❯](bold green) "
+error_symbol = "[❯](bold red) "add_newline = true
+
+format = """$os$hostname$username$directory$fill$time$cmd_duration
+$character"""
+
+[os]
+disabled = false
+style = "bg:235 fg:white"
+format = "[ $symbol ]($style)"
+
+[os.symbols]
+Ubuntu = "󰕈"
+Arch = "󰣇"
+Macos = ""
+
+[hostname]
+ssh_only = false
+style = "bg:235 fg:245 bold"
+format = "[$hostname ]($style)"
+
+[username]
+show_always = true
+style_user = "bg:blue fg:white bold"
+format = "[  $user ]($style)"
+
+[directory]
+style = "bg:cyan fg:black bold"
+format = "[  $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[fill]
+symbol = " "
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:235 fg:white"
+format = "[  $time ]($style)"
+
+[cmd_duration]
+min_time = 0
+style = "bg:blue fg:white bold"
+format = "[ 󱎫 $duration ]($style)"
+
+[character]
+success_symbol = "[❯](bold green) "
+error_symbol = "[❯](bold red) "add_newline = true
+
+format = """$os$hostname$username$directory$fill$time$cmd_duration
+$character"""
+
+[os]
+disabled = false
+style = "bg:235 fg:white"
+format = "[ $symbol ]($style)"
+
+[os.symbols]
+Ubuntu = "󰕈"
+Arch = "󰣇"
+Macos = ""
+
+[hostname]
+ssh_only = false
+style = "bg:235 fg:245 bold"
+format = "[$hostname ]($style)"
+
+[username]
+show_always = true
+style_user = "bg:blue fg:white bold"
+format = "[  $user ]($style)"
+
+[directory]
+style = "bg:cyan fg:black bold"
+format = "[  $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 
