@@ -25,6 +25,12 @@ if [[ -d "$ROOT/home" ]]; then
   done
 fi
 
+if [[ -f "$ROOT/macos/.zshrc" ]]; then
+  echo "Applying macOS zsh override (${ROOT}/macos/.zshrc -> $HOME/.zshrc) ..."
+  cp -a "$ROOT/macos/.zshrc" "$HOME/.zshrc"
+  chmod 600 "$HOME/.zshrc"
+fi
+
 tpm="$HOME/.tmux/plugins/tpm"
 if [[ ! -e "$tpm/tpm" ]]; then
   mkdir -p "$(dirname "$tpm")"

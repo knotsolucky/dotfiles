@@ -18,6 +18,7 @@ Requires **Command Line Tools** or Xcode toolchain for some builds; Homebrew wil
 
 - **[`../documentation/config-sync.md`](../documentation/config-sync.md)** — how `config/` sync works.
 - **[`../documentation/macos-install.md`](../documentation/macos-install.md)** — macOS-specific notes.
+- **[`.zshrc`](.zshrc)** — macOS shell profile applied by `install.sh`.
 
 ## Brewfile parity
 
