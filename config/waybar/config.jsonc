@@ -21,12 +21,22 @@
     ],
 
     "hyprland/workspaces": {
-        "format": "{name}"
+        "format": "{name}",
+        "sort-by": "number",
+        "move-to-monitor": true,
+        "enable-bar-scroll": false,
+        "persistent-workspaces": {
+            "*": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        }
     },
 
     "hyprland/window": {
         "format": "{title}",
-        "max-length": 38
+        "max-length": 38,
+        "separate-outputs": true,
+        "rewrite": {
+            "^$": ""
+        }
     },
 
     "mpris": {

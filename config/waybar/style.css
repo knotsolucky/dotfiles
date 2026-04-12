@@ -68,6 +68,18 @@ window#waybar {
     padding: 5px 10px;
 }
 
+/* No tiled clients: hide stale window title pill (see waybar-hyprland-window(5) window#waybar.empty). */
+window#waybar.empty #window {
+    opacity: 0;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    border-width: 0;
+    background: transparent;
+    font-size: 0;
+}
+
 #workspaces {
     background: #0c0c0c;
     padding: 3px;
