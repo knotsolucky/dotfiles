@@ -1,34 +1,14 @@
 local data = vim.fn.stdpath("data")
 vim.env.PATH = table.concat({
+  data .. "/mason/bin",
+  "/usr/local/bin",
   "/usr/bin",
   "/bin",
-  "/usr/local/bin",
-  data .. "/mason/bin",
   vim.env.PATH or "",
 }, ":")
-require("config.treesitter_cli").prepend_to_path(data)
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-
--- Neovim 0.9.x: vim.fs.joinpath exists from 0.10; nvim-treesitter calls it in setup.
-if vim.fs and not vim.fs.joinpath then
-  ---@diagnostic disable-next-line: duplicate-set-field
-  vim.fs.joinpath = function(...)
-    local parts = { ... }
-    if #parts == 0 then
-      return ""
-    end
-    local acc = tostring(parts[1]):gsub("/+$", "")
-    for i = 2, #parts do
-      local p = tostring(parts[i]):gsub("^/+", ""):gsub("/+$", "")
-      if p ~= "" then
-        acc = acc .. "/" .. p
-      end
-    end
-    return acc
-  end
-end
 
 require("config.options")
 
