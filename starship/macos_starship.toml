@@ -1,0 +1,40 @@
+add_newline = true
+format = """$os$hostname$username$directory$fill$time$cmd_duration
+$character"""
+
+[os]
+disabled = false
+style = "bg:#ffffff fg:#000000" # Apple White/Silver
+format = "[ $symbol ]($style)"
+
+[os.symbols]
+Macos = ""
+
+[hostname]
+style = "bg:#3a3a3c fg:#f1f5f9" # Space Grey
+format = "[$hostname ]($style)"
+
+[username]
+show_always = true
+style_user = "bg:#636366 fg:#ffffff bold" # Graphite
+style_root = "bg:#ff3b30 fg:#ffffff bold"
+format = "[  $user ]($style)"
+
+[directory]
+style = "bg:#007aff fg:#ffffff bold" # macOS Accent Blue
+format = "[  $path ]($style)"
+
+[fill]
+symbol = " "
+
+[time]
+style = "bg:#1c1c1e fg:#ffffff"
+format = "[  $time ]($style)"
+
+[cmd_duration]
+style = "bg:#8e8e93 fg:#ffffff bold"
+format = "[ 󱎫 $duration ]($style)"
+
+[character]
+success_symbol = "[❯](bold #ffffff) "
+error_symbol = "[❯](bold #ff3b30) "

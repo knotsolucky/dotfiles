@@ -1,0 +1,40 @@
+add_newline = true
+format = """$os$hostname$username$directory$fill$time$cmd_duration
+$character"""
+
+[os]
+disabled = false
+style = "bg:#E95420 fg:#ffffff" # Ubuntu Orange
+format = "[ $symbol ]($style)"
+
+[os.symbols]
+Ubuntu = "󰕈"
+
+[hostname]
+style = "bg:#5E2750 fg:#f1f5f9" # Ubuntu Aubergine
+format = "[$hostname ]($style)"
+
+[username]
+show_always = true
+style_user = "bg:#772953 fg:#ffffff bold" # Lighter Purple
+style_root = "bg:#b91c1c fg:#ffffff bold"
+format = "[  $user ]($style)"
+
+[directory]
+style = "bg:#aea79f fg:#2d2d2d bold" # Warm Grey
+format = "[  $path ]($style)"
+
+[fill]
+symbol = " "
+
+[time]
+style = "bg:#2d2d2d fg:#E95420"
+format = "[  $time ]($style)"
+
+[cmd_duration]
+style = "bg:#E95420 fg:#ffffff bold"
+format = "[ 󱎫 $duration ]($style)"
+
+[character]
+success_symbol = "[❯](bold #E95420) "
+error_symbol = "[❯](bold #f87171) "

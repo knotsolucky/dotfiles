@@ -3,7 +3,6 @@
 
 brew "bat"
 brew "btop"
-brew "bun"
 brew "cmake"
 brew "croc"
 brew "dotnet"
