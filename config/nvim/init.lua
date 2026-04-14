@@ -1,11 +1,12 @@
 local data = vim.fn.stdpath("data")
 vim.env.PATH = table.concat({
-  data .. "/mason/bin",
-  "/usr/local/bin",
   "/usr/bin",
   "/bin",
+  "/usr/local/bin",
+  data .. "/mason/bin",
   vim.env.PATH or "",
 }, ":")
+require("config.treesitter_cli").prepend_to_path(data)
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
