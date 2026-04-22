@@ -10,8 +10,6 @@ return {
         dependencies = {
           "hrsh7th/cmp-nvim-lsp",
           "hrsh7th/cmp-buffer",
-          "hrsh7th/cmp-path",
-          "hrsh7th/cmp-cmdline",
           "L3MON4D3/LuaSnip",
           "saadparwaiz1/cmp_luasnip",
           "windwp/nvim-autopairs",
@@ -36,14 +34,6 @@ return {
           { { name = "nvim_lsp" }, { name = "luasnip" } },
           { { name = "buffer", keyword_length = 3 } }
         ),
-      })
-      cmp.setup.cmdline({ "/", "?" }, {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = { { name = "buffer" } },
-      })
-      cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
       })
       cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
 
