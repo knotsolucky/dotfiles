@@ -40,6 +40,17 @@ fi
 echo "Syncing all of ${ROOT}/config/ -> ${XDG_CONFIG_HOME:-$HOME/.config} ..."
 bash "$ROOT/scripts/sync-all-config.sh"
 
+# hyprsplit: per-monitor workspaces (hyprland.conf uses split:*). Ships with Hyprland as hyprpm.
+echo "Installing / enabling hyprsplit via hyprpm (see documentation/hyprsplit.md) ..."
+if command -v hyprpm >/dev/null 2>&1; then
+  hyprpm update || echo "Warning: hyprpm update failed (network or headers); fix then run: yes | hyprpm add https://github.com/shezdy/hyprsplit && hyprpm enable hyprsplit"
+  yes | hyprpm add https://github.com/shezdy/hyprsplit || echo "Warning: hyprpm add hyprsplit failed (already added, or build error — see stderr above)."
+  hyprpm enable hyprsplit || echo "Warning: hyprpm enable hyprsplit failed."
+  hyprpm reload -n || true
+else
+  echo "Warning: hyprpm not on PATH; hyprsplit not installed. Install hyprland, then follow documentation/hyprsplit.md"
+fi
+
 echo "Linking ${ROOT}/home/ -> $HOME (stow) ..."
 bash "$ROOT/scripts/sync-home.sh"
 
