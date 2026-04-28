@@ -1,15 +1,15 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    lazy = false,
+    event = { "BufReadPost", "BufNewFile" },
     build = ":TSUpdate",
-    config = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        group = vim.api.nvim_create_augroup("user_ts_highlight", { clear = true }),
-        callback = function(args)
-          pcall(vim.treesitter.start, args.buf)
-        end,
-      })
+    opts = {
+      ensure_installed = { "lua", "vim", "vimdoc", "bash", "json", "yaml", "markdown" },
+      highlight = { enable = true },
+      indent = { enable = true },
+    },
+    config = function(_, opts)
+      require("nvim-treesitter").setup(opts)
     end,
   },
 }

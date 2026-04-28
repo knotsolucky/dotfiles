@@ -5,7 +5,6 @@
 (defpoll time_text :interval "1s" "date '+%H:%M'")
 
 (defpoll active_ws :interval "300ms" "bash ~/.config/eww/scripts/active-ws.sh")
-(defpoll title_text :interval "400ms" "bash ~/.config/eww/scripts/active-title.sh")
 (defpoll vol_text :interval "800ms" "bash ~/.config/eww/scripts/volume.sh")
 (defpoll net_text :interval "3s" "bash ~/.config/eww/scripts/network.sh")
 (defpoll mpris_bar :interval "2s" "bash ~/.config/eww/scripts/mpris-bar.sh")
@@ -30,7 +29,6 @@
         (button :class "${if (eq active_ws '8') 'bar-ws bar-ws-active' 'bar-ws'}" :onclick "hyprctl dispatch split:workspace 8" "8")
         (button :class "${if (eq active_ws '9') 'bar-ws bar-ws-active' 'bar-ws'}" :onclick "hyprctl dispatch split:workspace 9" "9")
         (button :class "${if (eq active_ws '10') 'bar-ws bar-ws-active' 'bar-ws'}" :onclick "hyprctl dispatch split:workspace 10" "10"))
-      (label :class "bar-title" :text "${title_text}" :halign "start" :hexpand false)
       (box :class "bar-mpris-wrap" :orientation "h" :hexpand true :space-evenly true
         (button :class "bar-mpris" :halign "center" :onclick "playerctl play-pause" :onmiddleclick "playerctl next" :onrightclick "playerctl previous" "${mpris_bar}"))
       (button :class "bar-chip" :onclick "bash ~/.config/eww/scripts/open-cpu-view.sh" "󰍛 ${cpu_text}")

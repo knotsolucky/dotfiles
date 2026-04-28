@@ -1,7 +1,5 @@
 return {
   defaults = { lazy = true },
-  git = { filter = false },
-  rocks = { enabled = false },
-  install = { colorscheme = { "catppuccin" } },
-  checker = { enabled = true, notify = false },
+  checker = { enabled = false },
+  change_detection = { notify = false },
 }

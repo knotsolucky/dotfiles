@@ -1,10 +1,10 @@
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
-vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Diagnostic float" })
-vim.keymap.set("n", "[d", function()
-  vim.diagnostic.goto_prev({ float = true })
-end, { desc = "Previous diagnostic" })
-vim.keymap.set("n", "]d", function()
-  vim.diagnostic.goto_next({ float = true })
-end, { desc = "Next diagnostic" })
-vim.keymap.set("n", "<leader>xl", vim.diagnostic.setqflist, { desc = "Diagnostics quickfix" })
-vim.keymap.set("n", "<leader>cm", "<cmd>Mason<cr>", { desc = "Mason (LSP/DAP/lint/format)" })
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search" })
+
+vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save" })
+vim.keymap.set("n", "<leader>q", "<cmd>q<CR>", { desc = "Quit" })
+
+vim.keymap.set("n", "<leader>e", "<cmd>Ex<CR>", { desc = "NetRW" })
+
+vim.keymap.set("n", "<leader>sd", function()
+  vim.diagnostic.open_float({ scope = "line", border = "rounded" })
+end, { desc = "Diagnostic full message (float)" })

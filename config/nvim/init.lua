@@ -1,20 +1,11 @@
-local data = vim.fn.stdpath("data")
-vim.env.PATH = table.concat({
-  data .. "/mason/bin",
-  "/usr/local/bin",
-  "/usr/bin",
-  "/bin",
-  vim.env.PATH or "",
-}, ":")
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 require("config.options")
+require("config.keymaps")
 
-local lazypath = data .. "/lazy/lazy.nvim"
-local uv = vim.uv or vim.loop
-if not uv.fs_stat(lazypath) then
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -27,16 +18,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  { import = "plugins.theme" },
-  { import = "plugins.dashboard" },
-  { import = "plugins.mason" },
-  { import = "plugins.treesitter" },
-  { import = "plugins.whichkey" },
-  { import = "plugins.lsp" },
-  { import = "plugins.format" },
-  { import = "plugins.lint" },
-  { import = "plugins.dap" },
-  { import = "plugins.extras" },
+  { import = "plugins" },
 }, require("config.lazy"))
 
-require("config.keymaps")
+if vim.fn.argc() > 1 then
+  vim.schedule(function()
+    vim.cmd("tab all")
+  end)
+end

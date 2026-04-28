@@ -25,7 +25,6 @@ window#waybar {
 #memory,
 #network,
 #pulseaudio,
-#window,
 #mpris,
 #tray,
 #custom-power {
@@ -45,7 +44,6 @@ window#waybar {
 #clock\.date,
 #clock\.time,
 #mpris,
-#window,
 #custom-power,
 #tray {
     color: #d8b4fe;
@@ -59,7 +57,6 @@ window#waybar {
 #clock\.date label,
 #clock\.time label,
 #mpris label,
-#window label,
 #custom-power label {
     color: inherit;
 }
@@ -77,18 +74,6 @@ window#waybar {
 
 #tray {
     padding: 5px 10px;
-}
-
-/* No tiled clients: hide stale window title pill (see waybar-hyprland-window(5) window#waybar.empty). */
-window#waybar.empty #window {
-    opacity: 0;
-    min-width: 0;
-    min-height: 0;
-    padding: 0;
-    margin: 0;
-    border-width: 0;
-    background: transparent;
-    font-size: 0;
 }
 
 /* Workspaces: flat strip — no outer “second bar” box; active = small purple tile only */
@@ -126,14 +111,15 @@ window#waybar.empty #window {
     border-radius: 2px;
 }
 
-/* hyprsplit / persistent empty: hide dead workspace pills (still get buttons if compositor lists empties) */
-#workspaces button.empty {
+/* Hide dead empty pills only — never hide empty+active (keyboard) or empty+visible (on-screen) */
+#workspaces button.empty:not(.active):not(.visible) {
     padding: 0;
     margin: 0;
     min-width: 0;
     min-height: 0;
     font-size: 0;
     opacity: 0;
+    border-width: 0;
 }
 
 #custom-power,

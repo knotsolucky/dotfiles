@@ -2,27 +2,20 @@ return {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    opts = {
-      spec = {
-        { "<leader>f", group = "find" },
-        { "<leader>c", group = "code" },
-        { "<leader>d", group = "dap" },
-        { "<leader>l", group = "lint" },
-        { "<leader>x", group = "diagnostics" },
-        { "<leader>g", group = "git" },
-      },
-    },
     keys = {
       {
         "<leader>?",
         function()
           require("which-key").show({ global = false })
         end,
-        desc = "Which-key",
+        desc = "Buffer local keymaps",
       },
     },
-    config = function(_, opts)
-      require("which-key").setup(opts)
-    end,
+    opts = {
+      preset = "classic",
+      delay = 300,
+      icons = { mappings = false },
+      win = { border = "rounded" },
+    },
   },
 }

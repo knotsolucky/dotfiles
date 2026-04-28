@@ -10,7 +10,7 @@
         "margin-right": 0,
         "spacing": 2,
 
-        "modules-left": ["clock#time", "clock#date", "hyprland/workspaces", "hyprland/window"],
+        "modules-left": ["clock#time", "clock#date", "hyprland/workspaces"],
         "modules-center": ["mpris"],
         "modules-right": [
             "cpu",
@@ -22,20 +22,11 @@
         ],
 
         "hyprland/workspaces": {
-            "format": "{id}",
+            "format": "{name}",
             "sort-by": "number",
-            "move-to-monitor": true,
+            "move-to-monitor": false,
             "enable-bar-scroll": false,
             "all-outputs": false
-        },
-
-        "hyprland/window": {
-            "format": "{title}",
-            "max-length": 38,
-            "separate-outputs": true,
-            "rewrite": {
-                "^$": ""
-            }
         },
 
         "mpris": {
@@ -109,7 +100,7 @@
         "margin-right": 0,
         "spacing": 2,
 
-        "modules-left": ["clock#time", "clock#date", "hyprland/workspaces", "hyprland/window"],
+        "modules-left": ["clock#time", "clock#date", "hyprland/workspaces"],
         "modules-center": ["mpris"],
         "modules-right": [
             "cpu",
@@ -120,20 +111,11 @@
         ],
 
         "hyprland/workspaces": {
-            "format": "{id}",
+            "format": "{name}",
             "sort-by": "number",
-            "move-to-monitor": true,
+            "move-to-monitor": false,
             "enable-bar-scroll": false,
             "all-outputs": false
-        },
-
-        "hyprland/window": {
-            "format": "{title}",
-            "max-length": 38,
-            "separate-outputs": true,
-            "rewrite": {
-                "^$": ""
-            }
         },
 
         "mpris": {
