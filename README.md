@@ -12,7 +12,7 @@ Starship: single `config/starship.toml` everywhere (no per-OS files).
 
 ### Arch Linux
 
-**`arch-linux/install.sh`** installs **`git`** + **`stow`**, runs **`dotfiles.sh`** (config + home + hyprsplit), then **`pacman`** / **AUR** packages.
+**`arch-linux/install.sh`** installs **`git`** + **`stow`**, runs **`dotfiles.sh`** (config + home + hyprsplit), **`pacman`** (incl. **`base-devel`**), builds **`yay`** from AUR if missing, then **`yay`** for **AUR** packages. Enables **`ufw`**: deny inbound by default, **SSH (22)** from anywhere; **Next.js (3000/3001), Vite (5173), Metro (8081), Expo (19000/19001), LocalSend (53317 tcp+udp)** from private LAN subnets only (`10/8`, `172.16/12`, `192.168/16`).
 
 ### macOS
 

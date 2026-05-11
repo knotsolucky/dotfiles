@@ -1,3 +1,6 @@
+export LANG=en_GB.UTF-8
+export LC_ALL=en_GB.UTF-8
+
 export EDITOR=nvim
 export HISTFILE=~/.zsh_history
 export HISTSIZE=50000
@@ -31,3 +34,5 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 if [[ -o interactive ]] && (( $+commands[fastfetch] )); then
   fastfetch
 fi
+export LANG=en_GB.UTF-8
+export LC_ALL=en_GB.UTF-8
