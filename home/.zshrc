@@ -10,11 +10,8 @@ setopt HIST_IGNORE_DUPS SHARE_HISTORY
 
 # 3. External Tool Initializations
 command -v brew >/dev/null && eval "$(brew shellenv)"
-if (( $+commands[zoxide] )); then
-  eval "$(zoxide init zsh --cmd cd)"
-fi
 
-# 4. Completions (Must be initialized before plugins)
+# 4. Completions (before zoxide: zoxide registers `compdef` for cd/cdi)
 autoload -Uz compinit && compinit
 
 # 5. Aliases (eza) — default eza colours (no EZA_COLORS / LS_COLORS overrides)
@@ -27,6 +24,10 @@ fi
 # 6. FZF Key Bindings & Completion
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+
+if (( $+commands[zoxide] )); then
+  eval "$(zoxide init zsh --cmd cd)"
+fi
 
 # 7. Visual Plugins (ORDER MATTERS HERE)
 # Prompt first

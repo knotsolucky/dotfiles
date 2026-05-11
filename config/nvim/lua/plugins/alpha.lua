@@ -6,11 +6,11 @@ return {
     config = function()
       local dashboard = require("alpha.themes.dashboard")
       dashboard.section.header.val = {
-        "  _   _       _         ",
-        " | \\ | | ___ | |__  ___ ",
-        " |  \\| |/ _ \\| '_ \\/ __|",
-        " | |\\  | (_) | | | \\__ \\",
-        " |_| \\_|\\___/|_| |_|___/",
+        "",
+        "+----------------------------------------+",
+        "|               luckyvim                 |",
+        "+----------------------------------------+",
+        "",
       }
       dashboard.section.buttons.val = {
         dashboard.button("e", "New file", ":ene <BAR> startinsert<CR>"),

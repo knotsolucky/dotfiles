@@ -1,0 +1,4 @@
+theme = "oled-boxed"
+
+[columns]
+"symbols" = 3
