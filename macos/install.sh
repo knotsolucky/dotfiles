@@ -1,38 +1,20 @@
 #!/usr/bin/env bash
-# Homebrew bundle (macOS or Linuxbrew) + config sync. Casks run only on macOS.
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-BREWFILE="${DOTFILES_BREWFILE:-$ROOT/macos/Brewfile}"
-
-if ! command -v brew >/dev/null 2>&1; then
-  printf '%s\n' "Homebrew not found. Install from https://brew.sh then re-run:" >&2
-  printf '  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"\n' >&2
+[[ "$(uname -s)" == "Darwin" ]] || {
+  printf '%s\n' "macos/install.sh is for macOS only (MacPorts)." >&2
   exit 1
-fi
+}
 
-os="$(uname -s)"
-bundle_file="$BREWFILE"
-tmp_brewfile=""
-if [[ "$os" != "Darwin" ]]; then
-  tmp_brewfile="$(mktemp "${TMPDIR:-/tmp}/dotfiles-brewfile.XXXXXX")"
-  grep -Ev '^[[:space:]]*cask([[:space:]]|\()' "$BREWFILE" >"$tmp_brewfile"
-  bundle_file="$tmp_brewfile"
-fi
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PORTLIST="$ROOT/macos/ports.txt"
 
-echo "brew bundle install --file=$bundle_file"
-brew bundle install --file="$bundle_file"
-[[ -n "$tmp_brewfile" ]] && rm -f "$tmp_brewfile"
-
-sync_note="full config/"
-if [[ "$os" == "Darwin" ]]; then
-  sync_note="Hyprland / Wayland stack dirs skipped on macOS by default; set DOTFILES_SYNC_EXCLUDE='' for full config/"
-fi
-echo "Syncing ${ROOT}/config/ -> ${XDG_CONFIG_HOME:-$HOME/.config} ($sync_note) ..."
-bash "$ROOT/scripts/sync-all-config.sh"
+sync_note="Hyprland / Wayland stack dirs skipped on macOS by default; set DOTFILES_SYNC_EXCLUDE='' for full config/"
+echo "Dotfiles: config → ~/.config ($sync_note) …"
+bash "$ROOT/scripts/dotfiles.sh" config
 
 if [[ -d "$ROOT/home" ]]; then
-  echo "Copying ${ROOT}/home/ -> $HOME ..."
+  echo "Copying ${ROOT}/home/ -> $HOME …"
   cp -a "$ROOT/home"/. "$HOME"/
   for dot in "$HOME"/.zshrc "$HOME"/.tmux.conf; do
     [[ -f "$dot" ]] && chmod 600 "$dot"
@@ -40,10 +22,36 @@ if [[ -d "$ROOT/home" ]]; then
 fi
 
 if [[ -f "$ROOT/macos/.zshrc" ]]; then
-  echo "Applying Homebrew-oriented zsh (${ROOT}/macos/.zshrc -> $HOME/.zshrc) ..."
+  echo "Applying macOS zshrc (${ROOT}/macos/.zshrc -> $HOME/.zshrc) …"
   cp -a "$ROOT/macos/.zshrc" "$HOME/.zshrc"
   chmod 600 "$HOME/.zshrc"
 fi
+
+if ! command -v port >/dev/null 2>&1; then
+  printf '%s\n' "MacPorts not found. Install from https://www.macports.org/install.php then re-run." >&2
+  exit 1
+fi
+
+ports=()
+while IFS= read -r line || [[ -n "$line" ]]; do
+  line="${line%%$'\r'}"
+  [[ "$line" =~ ^[[:space:]]*# ]] && continue
+  stripped="$(echo "$line" | tr -d '[:space:]')"
+  [[ -z "$stripped" ]] && continue
+  ports+=("$line")
+done <"$PORTLIST"
+
+if [[ "${#ports[@]}" -eq 0 ]]; then
+  printf '%s\n' "No ports listed in $PORTLIST" >&2
+  exit 1
+fi
+
+if [[ "${SKIP_PORT_SELFUPDATE:-0}" != "1" ]]; then
+  sudo port selfupdate
+fi
+
+echo "port install (${#ports[@]} ports) …"
+sudo port -N install "${ports[@]}"
 
 tpm="$HOME/.tmux/plugins/tpm"
 if [[ ! -e "$tpm/tpm" ]]; then
@@ -55,5 +63,7 @@ if [[ -x "$tpm/bin/install_plugins" ]]; then
   "$tpm/bin/install_plugins" || true
 fi
 
-echo "Optional: brew services start syncthing  (or use Syncthing from Docker / app)."
-echo "Installation complete."
+printf '%s\n' \
+  "Done. Optional: sudo port load syncthing (or run syncthing manually)." \
+  "GUI apps / fonts that were Homebrew casks: see macos/GUI.md" \
+  "uv has no MacPorts port — see macos/ports.txt header."

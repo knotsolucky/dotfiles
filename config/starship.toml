@@ -1,32 +1,35 @@
 add_newline = true
 
-format = """$os$hostname$username$directory$fill$time$cmd_duration
+# Dark pastel: dusty tinted backgrounds + soft pastel fg (easy on OLED/dark themes).
+format = """${custom.session}$hostname$username$directory$fill$time$cmd_duration
 $character"""
 
-[os]
-disabled = false
-style = "bg:#3f3f46 fg:#e4e4e7"
-format = "[ $symbol ]($style)"
+[custom.session]
+command = "printf ''"
+shell = ["sh", "-c"]
+when = "true"
+style = "bg:#3d3558 fg:#c4b5fd"
+format = "[  ]($style)"
 
-[os.symbols]
-Ubuntu = "󰕈"
-Arch = "󰣇"
-Macos = ""
+[os]
+disabled = true
+
+[shell]
+disabled = true
 
 [hostname]
 ssh_only = false
-style = "bg:#52525b fg:#f4f4f5"
-format = "[$hostname ]($style)"
+style = "bg:#1e3a32 fg:#86efac"
+format = "[  $hostname ]($style)"
 
 [username]
 show_always = true
-style_user = "bg:#5b21b6 fg:#faf5ff bold"
-# Root must set fg explicitly too — default root styling uses different colours so the  icon and name looked mismatched.
-style_root = "bg:#86198f fg:#faf5ff bold"
+style_user = "bg:#3d3028 fg:#fdba74 bold"
+style_root = "bg:#44252d fg:#fca5a5 bold"
 format = "[  $user ]($style)"
 
 [directory]
-style = "bg:#7c3aed fg:#fefce8 bold"
+style = "bg:#1e3a5f fg:#93c5fd bold"
 format = "[  $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
@@ -37,14 +40,14 @@ symbol = " "
 [time]
 disabled = false
 time_format = "%R"
-style = "bg:#4c1d95 fg:#ede9fe"
+style = "bg:#362f4a fg:#d8b4fe"
 format = "[  $time ]($style)"
 
 [cmd_duration]
 min_time = 0
-style = "bg:#a78bfa fg:#1e1b4b bold"
+style = "bg:#4a2538 fg:#f9a8d4 bold"
 format = "[ 󱎫 $duration ]($style)"
 
 [character]
-success_symbol = "[❯](bold #c4b5fd) "
-error_symbol = "[❯](bold #f87171) "
+success_symbol = "[>](bold #86efac) "
+error_symbol = "[>](bold #fca5a5) "

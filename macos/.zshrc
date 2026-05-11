@@ -5,19 +5,21 @@ export HISTSIZE=50000
 export SAVEHIST=50000
 setopt HIST_IGNORE_DUPS SHARE_HISTORY
 
-eval "$(brew shellenv)"
+# MacPorts — https://guide.macports.org/#installing.shell
+MP="${MACPORTS_PREFIX:-/opt/local}"
+export PATH="$MP/bin:$MP/sbin:$PATH"
+export MANPATH="$MP/share/man:$MANPATH"
 
 autoload -Uz compinit && compinit
 
-source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "$(brew --prefix)/opt/fzf/shell/completion.zsh"
-source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
+[[ -r "$MP/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$MP/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+[[ -r "$MP/share/fzf/shell/completion.zsh" ]] && source "$MP/share/fzf/shell/completion.zsh"
+[[ -r "$MP/share/fzf/shell/key-bindings.zsh" ]] && source "$MP/share/fzf/shell/key-bindings.zsh"
 
 if (( $+commands[zoxide] )); then
   eval "$(zoxide init zsh --cmd cd)"
 fi
 
-export STARSHIP_CONFIG="${STARSHIP_CONFIG:-${XDG_CONFIG_HOME:-$HOME/.config}/starship.toml}"
 eval "$(starship init zsh)"
 
 if (( $+commands[eza] )); then
@@ -26,4 +28,4 @@ if (( $+commands[eza] )); then
   alias lt='eza --tree --level=2'
 fi
 
-source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+[[ -r "$MP/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$MP/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"

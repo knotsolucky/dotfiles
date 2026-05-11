@@ -1,0 +1,46 @@
+# MacPorts list for macos/install.sh (one port name per line).
+# Install MacPorts first: https://www.macports.org/install.php
+#
+# Not in MacPorts (install separately): uv — curl -LsSf https://astral.sh/uv/install.sh | sh
+
+bat
+btop
+cmake
+croc
+dotnet-cli
+eza
+fastfetch
+fd
+ffmpeg
+fzf
+gcc14
+gh
+gmake
+go
+htop
+lazygit
+llvm-18
+lua
+maven3
+mysql8
+neofetch
+neovim
+nodejs22
+openjdk21
+openvpn2
+python311
+raylib
+ripgrep
+rust
+libsdl2
+starship
+syncthing
+tmux
+tree
+tree-sitter
+unzip
+zip
+zoxide
+zsh
+zsh-autosuggestions
+zsh-syntax-highlighting
