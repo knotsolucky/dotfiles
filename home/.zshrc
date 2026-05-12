@@ -1,5 +1,11 @@
-export LANG=en_GB.UTF-8
-export LC_ALL=en_GB.UTF-8
+# en_GB must exist in `locale -a` (see /etc/locale.gen); else bash warns on every subshell
+if locale -a 2>/dev/null | grep -qiE '^en_GB\.(utf8|UTF-8)$'; then
+  export LANG=en_GB.UTF-8
+  export LC_ALL=en_GB.UTF-8
+else
+  export LANG=C.UTF-8
+  export LC_ALL=C.UTF-8
+fi
 
 export EDITOR=nvim
 export HISTFILE=~/.zsh_history
@@ -34,5 +40,3 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 if [[ -o interactive ]] && (( $+commands[fastfetch] )); then
   fastfetch
 fi
-export LANG=en_GB.UTF-8
-export LC_ALL=en_GB.UTF-8

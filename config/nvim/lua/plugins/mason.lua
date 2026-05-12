@@ -4,6 +4,7 @@ return {
     cmd = "Mason",
     opts = {
       ui = { border = "rounded" },
+      PATH = "prepend",
     },
   },
 }

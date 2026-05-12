@@ -1,0 +1,150 @@
+/* Light boxed — paired with waybar light / walker oled-boxed layout */
+@define-color window_bg_color #f4f4f5;
+@define-color accent_bg_color #6d28d9;
+@define-color theme_fg_color #3f3f46;
+@define-color error_bg_color #fecaca;
+@define-color error_fg_color #7f1d1d;
+
+@define-color surface_pill #ffffff;
+@define-color text_bright #18181b;
+@define-color text_hover #5b21b6;
+
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.box-wrapper {
+  background: @window_bg_color;
+  color: @theme_fg_color;
+  padding: 14px 16px;
+  border-radius: 0;
+  border: 1px solid alpha(#000000, 0.1);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.12),
+    0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.input {
+  caret-color: @accent_bg_color;
+  background: @surface_pill;
+  color: @theme_fg_color;
+  padding: 8px 12px;
+  border-radius: 0;
+  border: 1px solid alpha(#000000, 0.1);
+  min-height: 22px;
+}
+
+.input:focus {
+  border-color: alpha(@accent_bg_color, 0.55);
+}
+
+.input placeholder {
+  color: alpha(@theme_fg_color, 0.5);
+  opacity: 1;
+}
+
+.list {
+  color: @theme_fg_color;
+}
+
+.item-box {
+  border-radius: 0;
+  padding: 8px 10px;
+  margin: 2px 0;
+}
+
+child:hover .item-box {
+  background: alpha(@accent_bg_color, 0.12);
+  color: @text_hover;
+}
+
+child:selected .item-box {
+  background: @accent_bg_color;
+  color: #faf5ff;
+}
+
+child:selected .item-subtext {
+  color: alpha(#faf5ff, 0.85);
+}
+
+.item-text {
+  font-size: 14px;
+}
+
+.item-subtext {
+  font-size: 12px;
+  color: alpha(@theme_fg_color, 0.55);
+}
+
+.item-image,
+.item-image-text {
+  margin-right: 10px;
+}
+
+.item-quick-activation {
+  margin-left: 10px;
+  background: @surface_pill;
+  color: @theme_fg_color;
+  border-radius: 0;
+  border: 1px solid alpha(#000000, 0.1);
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+child:selected .item-quick-activation {
+  background: alpha(#faf5ff, 0.2);
+  color: #faf5ff;
+  border-color: alpha(#faf5ff, 0.35);
+}
+
+.placeholder,
+.elephant-hint {
+  color: @theme_fg_color;
+  opacity: 0.45;
+}
+
+.keybinds-wrapper {
+  border-top: 1px solid alpha(#000000, 0.08);
+  margin-top: 8px;
+  padding-top: 8px;
+  font-size: 12px;
+  color: alpha(@theme_fg_color, 0.55);
+}
+
+.keybind-bind {
+  font-weight: 700;
+  color: @theme_fg_color;
+  text-transform: lowercase;
+}
+
+.error {
+  padding: 10px;
+  background: @error_bg_color;
+  color: @error_fg_color;
+  border-radius: 0;
+  border: 1px solid alpha(@error_fg_color, 0.2);
+}
+
+.preview {
+  border: 1px solid alpha(#000000, 0.1);
+  padding: 10px;
+  border-radius: 0;
+  color: @theme_fg_color;
+  background: @surface_pill;
+}
+
+.normal-icons {
+  -gtk-icon-size: 16px;
+}
+
+.large-icons {
+  -gtk-icon-size: 32px;
+}
+
+scrollbar {
+  opacity: 0;
+}

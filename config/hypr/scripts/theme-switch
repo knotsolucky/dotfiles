@@ -1,0 +1,95 @@
+#!/usr/bin/env sh
+# App appearance only (GTK, Walker, bat, btop, Ghostty). Does not touch Hyprland, waybar, eww, kitty.
+# State: ~/.local/state/appearance-mode — Neovim reads this on startup (see lua/plugins/colors.lua).
+# Usage: theme-switch [dark|light|toggle]
+set -eu
+
+CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}"
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}"
+STATE_FILE="$STATE_DIR/appearance-mode"
+HOOKDIR="$CONFIG/hypr/scripts/theme-switch.d"
+cmd="${1:-toggle}"
+
+mkdir -p "$STATE_DIR"
+
+current="dark"
+[ -f "$STATE_FILE" ] && current="$(cat "$STATE_FILE")"
+
+case "$cmd" in
+  dark) next=dark ;;
+  light) next=light ;;
+  toggle)
+    case "$current" in
+      dark) next=light ;;
+      *) next=dark ;;
+    esac
+    ;;
+  *)
+    echo "usage: theme-switch [dark|light|toggle]" >&2
+    exit 2
+    ;;
+esac
+
+printf '%s\n' "$next" >"$STATE_FILE"
+
+# GTK / libadwaita (Nautilus, Settings, many Flatpaks)
+if command -v gsettings >/dev/null 2>&1; then
+  if [ "$next" = light ]; then
+    gsettings set org.gnome.desktop.interface color-scheme prefer-light >/dev/null 2>&1 || true
+    gsettings set org.gnome.desktop.interface gtk-theme Adwaita >/dev/null 2>&1 || true
+    gsettings set org.gnome.desktop.interface gtk-application-prefer-dark-theme false >/dev/null 2>&1 || true
+  else
+    gsettings set org.gnome.desktop.interface color-scheme prefer-dark >/dev/null 2>&1 || true
+    gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark >/dev/null 2>&1 || true
+    gsettings set org.gnome.desktop.interface gtk-application-prefer-dark-theme true >/dev/null 2>&1 || true
+  fi
+fi
+
+wf="$CONFIG/walker/config.toml"
+if [ -f "$wf" ]; then
+  if [ "$next" = light ]; then
+    sed -i 's/^theme *= *"[^"]*"/theme = "light-boxed"/' "$wf" 2>/dev/null || true
+  else
+    sed -i 's/^theme *= *"[^"]*"/theme = "oled-boxed"/' "$wf" 2>/dev/null || true
+  fi
+fi
+
+bf="$CONFIG/bat/config"
+if [ -f "$bf" ]; then
+  if [ "$next" = light ]; then
+    sed -i 's/^--theme="[^"]*"/--theme="Catppuccin Latte"/' "$bf" 2>/dev/null || true
+  else
+    sed -i 's/^--theme="[^"]*"/--theme="Monokai Extended"/' "$bf" 2>/dev/null || true
+  fi
+fi
+
+btf="$CONFIG/btop/btop.conf"
+if [ -f "$btf" ]; then
+  if [ "$next" = light ]; then
+    sed -i 's/^color_theme *= *.*/color_theme = "adwaita"/' "$btf" 2>/dev/null || true
+  else
+    sed -i 's/^color_theme *= *.*/color_theme = "adwaita-dark"/' "$btf" 2>/dev/null || true
+  fi
+fi
+
+gf="$CONFIG/ghostty/config"
+if [ -f "$gf" ]; then
+  if [ "$next" = light ]; then
+    sed -i 's/^theme *=.*/theme = "Atom One Light"/' "$gf" 2>/dev/null || true
+  else
+    sed -i 's/^theme *=.*/theme = "Adventure"/' "$gf" 2>/dev/null || true
+  fi
+fi
+
+if command -v walker >/dev/null 2>&1; then
+  pkill -f 'walker --gapplication-service' >/dev/null 2>&1 || true
+  sleep 0.3
+  walker --gapplication-service >/dev/null 2>&1 &
+fi
+
+if [ -d "$HOOKDIR" ]; then
+  for h in "$HOOKDIR"/*.sh; do
+    [ -f "$h" ] || continue
+    [ -x "$h" ] && "$h" "$next" || true
+  done
+fi
