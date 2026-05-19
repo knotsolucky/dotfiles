@@ -14,10 +14,16 @@ usage() {
 sync_all_config() {
   local SRC="$ROOT/config"
   local DEST="${XDG_CONFIG_HOME:-$HOME/.config}"
-  local DEFAULT_MACOS_EXCLUDES="hypr HyprPaper waybar swaync wlogout eww pipewire"
+  local DEFAULT_DESKTOP_EXCLUDES="hypr HyprPaper waybar swaync wlogout eww pipewire"
+
+  is_wsl() {
+    [[ -n "${WSL_DISTRO_NAME:-}" ]] || grep -qiE 'microsoft|wsl' /proc/version 2>/dev/null
+  }
 
   if [[ "$(uname -s)" == "Darwin" ]] && ! [ -n "${DOTFILES_SYNC_EXCLUDE+x}" ]; then
-    DOTFILES_SYNC_EXCLUDE="$DEFAULT_MACOS_EXCLUDES"
+    DOTFILES_SYNC_EXCLUDE="$DEFAULT_DESKTOP_EXCLUDES"
+  elif is_wsl && ! [ -n "${DOTFILES_SYNC_EXCLUDE+x}" ]; then
+    DOTFILES_SYNC_EXCLUDE="$DEFAULT_DESKTOP_EXCLUDES"
   fi
 
   should_skip() {
