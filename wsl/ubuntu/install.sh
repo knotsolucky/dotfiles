@@ -44,7 +44,44 @@ link_ubuntu_cli_names() {
   fi
 }
 
+nvim_version_lt() {
+  local have="${1:-}" want="${2:-}"
+  [[ -z "$have" || -z "$want" ]] && return 1
+  [[ "$(printf '%s\n%s\n' "$have" "$want" | sort -V | head -1)" != "$want" ]]
+}
+
+install_neovim() {
+  local _ver _arch _tag _tmp _dir
+  _ver="$(nvim --version 2>/dev/null | head -1 | sed -n 's/.*NVIM v\([0-9.]*\).*/\1/p')"
+  if [[ -n "$_ver" ]] && ! nvim_version_lt "$_ver" "0.10.0"; then
+    return 0
+  fi
+
+  echo "Installing Neovim ≥0.10 (dotfiles need vim.uv / vim.fs.joinpath) …"
+  _arch="$(uname -m)"
+  case "$_arch" in
+    x86_64) _dir=nvim-linux-x86_64 ;;
+    aarch64|arm64) _dir=nvim-linux-arm64 ;;
+    *)
+      echo "Warning: Neovim upgrade skip (unsupported arch: $_arch)"
+      return 0
+      ;;
+  esac
+
+  _tag="$(curl -fsSL https://api.github.com/repos/neovim/neovim/releases/latest | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p')"
+  _tmp="$(mktemp -d)"
+  curl -fsSL "https://github.com/neovim/neovim/releases/download/${_tag}/${_dir}.tar.gz" | tar -xz -C "$_tmp"
+  rm -rf "$HOME/.local/${_dir}"
+  mv "$_tmp/${_dir}" "$HOME/.local/${_dir}"
+  mkdir -p "$HOME/.local/bin"
+  ln -sfn "$HOME/.local/${_dir}/bin/nvim" "$HOME/.local/bin/nvim"
+  rm -rf "$_tmp"
+  unset _ver _arch _tag _tmp _dir
+}
+
 install_extras() {
+  install_neovim
+
   if ! command -v starship >/dev/null 2>&1; then
     echo "Installing starship …"
     curl -fsSL https://starship.rs/install.sh | sh -s -- -y

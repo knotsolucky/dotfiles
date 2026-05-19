@@ -8,6 +8,7 @@ stow
 zsh
 zsh-autosuggestions
 zsh-syntax-highlighting
+# neovim (apt is 0.9.x); install.sh installs ≥0.10 to ~/.local/bin
 neovim
 fd-find
 ripgrep
